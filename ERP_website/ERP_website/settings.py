@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #Add the ERP Application
-    'ERP.apps.ERPConfig'
+    'ERP.apps.ErpConfig'
 ]
 
 MIDDLEWARE = [
@@ -107,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'AU'
+TIME_ZONE = 'Australia/Brisbane'
 
 USE_I18N = True
 
