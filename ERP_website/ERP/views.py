@@ -18,11 +18,16 @@ def index(request):
     # the all() is implied by default
     num_authors = Author.objects.count()
 
+    #Number of Visits to the Site's homepage
+    num_visits = request.session.get('num_visits',0)
+    request.session['num_visits'] = num_visits + 1
+
     context = {
         'num_books' : num_books,
         'num_instances': num_instances,
         'num_instances_available' : num_instances_available,
         "num_authors" : num_authors,
+        'num_visits' : num_visits,
     }
 
     #Render the HTML template index.html with the data within the context variable.
@@ -46,3 +51,21 @@ class BookListView(generic.ListView):
     
 class BookDetailView(generic.DetailView):
     model = Book
+
+class AuthorListView(generic.ListView):
+    model = Author
+    paginate_by = 2
+    context_object_name = "author_list"
+
+    def get_queryset(self):
+        return Author.objects.all()
+    
+    def get_context_data(self, **kwargs):
+        # call the base implementation first to get the context
+        context = super(AuthorListView, self).get_context_data(**kwargs)
+        # create any data and add it to the context
+        context["some_data"] = "this is additional data"
+        return context
+    
+class AuthorDetailView(generic.DetailView):
+    model = Author
