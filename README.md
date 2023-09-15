@@ -1,2 +1,2 @@
 # ERP_Website
-Learning_django
+Basic ERP Backend Website for Gym Fitness
