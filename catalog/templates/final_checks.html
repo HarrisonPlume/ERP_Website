@@ -1,0 +1,33 @@
+
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+  <h1>Final checks and core sign off</h1>
+  <br>
+  <h2>Core List</h2>
+    <hr>
+    {% for part in Parts %}
+    {% if part.archive != True %}
+    {% if part.title|add:"s"|add:part.serial not in Check_Tasks_Completed %}
+    <li>{{part.title}} ({{part.team}}) Serial: {{part.serial}} 
+    <span class = "text-success"> (All Tasks Completed) <img src="{% static 'catalog/tick.png' %}" alt="Complete"></span> 
+    <a href = "{% url 'part-complete' part.pk %}"> Sign off Core</a></li>
+    {% endif %}
+    {% elif Cores_not_in_Archive == 0 and forloop.counter0 == 0 %}
+    <h5> There are Currently no cores in the system.</h5>
+    {% endif %}
+    {% endfor %}
+    
+    {% for part in Parts %}
+    {% if part.archive != True %}
+    {% if part.title|add:"s"|add:part.serial in Check_Tasks_Completed %}
+    <li>{{part.title}} ({{part.team}}) Serial: {{part.serial}} - 
+    <strong>Incomplete Task:</strong>
+    {{part.serial|get_partNo:part.title|get_item:Check_Tasks_Completed}}</li>    
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    
+   
+        
+{% endblock %}
