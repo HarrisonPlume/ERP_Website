@@ -1,0 +1,123 @@
+{% extends "base_generic.html" %}
+{% block content %}
+
+<head>
+<style>
+table, th, td {
+  border: 1px solid rgb(160,160,160);
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+a.ex3 {color: #bababa;
+font-weight: bold;
+}
+a.ex2{color: #bababa; text-align:center}
+
+
+th span 
+{
+  -ms-writing-mode: tb-rl;
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+}
+</style>
+</head>
+{% load static %}
+    <h1 style="color:#bababa"> Class Timetable</h1>
+    <hr>
+    {% if user.is_authenticated %}
+      <h5 style="color:#bababa">Admin Panel</h5>
+      <p style="color:#bababa"><a class = "ex3" href = "">Update Timetable</a></p>
+      <hr>
+    {% endif %}
+      <table border="1">
+        <tr>
+            <th>        </th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+            <th>Sunday</th>
+        </tr>
+        <tr>
+            <td>6am</td>
+                <td>{{current_timetable.mon6}}</td>
+                <td>{{current_timetable.tue6}}</td>
+                <td>{{current_timetable.wed6}}</td>
+        </tr>
+        <tr>
+            <td>7am</td>
+            <td>{{current_timetable.mon7}}</td>
+            <td>{{current_timetable.tue7}}</td>
+            <td>{{current_timetable.wed7}}</td>
+        </tr>
+        <tr>
+            <td>8am</td>
+            <td>{{current_timetable.mon8}}</td>
+            <td>{{current_timetable.tue8}}</td>
+            <td>{{current_timetable.wed8}}</td>
+        </tr>
+        <tr>
+            <td>9am</td>
+            <td>{{current_timetable.mon9}}</td>
+            <td>{{current_timetable.tue9}}</td>
+            <td>{{current_timetable.wed9}}</td>
+        </tr>
+        <tr>
+            <td>10am</td>
+            <td>{{current_timetable.mon10}}</td>
+            <td>{{current_timetable.tue10}}</td>
+            <td>{{current_timetable.wed10}}</td>
+        </tr>
+        <tr>
+            <td>11am</td>
+            <td>{{current_timetable.mon11}}</td>
+            <td>{{current_timetable.tue11}}</td>
+            <td>{{current_timetable.wed11}}</td>
+        </tr>
+        <tr>
+            <td>12pm</td>
+            <td>{{current_timetable.mon12}}</td>
+            <td>{{current_timetable.tue12}}</td>
+            <td>{{current_timetable.wed12}}</td>
+        </tr>
+        <tr>
+            <td>1pm</td>
+            <td>{{current_timetable.mon13}}</td>
+            <td>{{current_timetable.tue13}}</td>
+            <td>{{current_timetable.wed13}}</td>
+        </tr>
+        <tr>
+            <td>2pm</td>
+            <td>{{current_timetable.mon14}}</td>
+            <td>{{current_timetable.tue14}}</td>
+            <td>{{current_timetable.wed14}}</td>
+        </tr>
+        <tr>
+            <td>3pm</td>
+            <td>{{current_timetable.mon15}}</td>
+            <td>{{current_timetable.tue15}}</td>
+            <td>{{current_timetable.wed15}}</td>
+        </tr>
+        <tr>
+            <td>4pm</td>
+            <td>{{current_timetable.mon16}}</td>
+            <td>{{current_timetable.tue16}}</td>
+            <td>{{current_timetable.wed16}}</td>
+        </tr>
+        <tr>
+            <td>5pm</td>
+            <td>{{current_timetable.mon17}}</td>
+            <td>{{current_timetable.tue17}}</td>
+            <td>{{current_timetable.wed17}}</td>
+        </tr>
+    </table>
+
+{% endblock %}

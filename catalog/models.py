@@ -1,6 +1,5 @@
 from django.db import models
 from django.urls import reverse # generate urls' by reversing url patterns
-import uuid #Required for unique book instances
 from django.contrib.auth.models import User
 from datetime import date
 from django.db.models.signals import m2m_changed, post_save, pre_save
@@ -9,389 +8,12 @@ from django.utils import timezone
 from django.db.models import Case, When, Value
 import time
 import datetime
-
-class Deburr_Task(models.Model):
-    """
-    Model for the required sheet metal forming tasks on the press:
-    """
-    title = models.CharField(max_length = 100, null = True)
-    
-    def __str__(self):
-        """String for Representing the model objetc (on admin site)"""
-        return self.title
-    
-class DeburrTaskInstance(models.Model):
-    """
-    Model for representing multiple sheet metal forming tasks required to be
-    completed
-    """
-    task = models.CharField(max_length = 100, null = True)
-    part = models.ForeignKey("Part", on_delete=models.CASCADE, null = True)
-    TASK_STATUS = ((2,"Not Started"),(3, "On Hold"),(10, "Complete"),
-                   (1, "In Progress"))
-    status = models.IntegerField(choices = TASK_STATUS, 
-                              blank = False, default = 2,
-                              help_text = "Set task completion status")
-    #Create Time String and decimal fields
-    createtime = models.CharField(max_length = 50, null = True, blank = True)
-    createtimenum = models.DecimalField(decimal_places=2, max_digits=14, null=True, blank = True)
-    #Start Time String and decimal fields
-    starttime = models.CharField(max_length = 50, null = True, blank = True)
-    starttimenum = models.DecimalField(decimal_places=2,max_digits=14,null=True, blank = True)
-    #Time to start string feild
-    timetostart = models.CharField(max_length = 50,null=True, blank = True)
-    #Finish Time String field
-    finishtime = models.CharField(max_length = 50, null = True, blank = True)
-    #Time taken str field
-    timetaken = models.CharField(max_length = 50,null=True, blank = True)
-    class Meta:
-        ordering = ['part','status']
-
-    def __str__(self):
-        """String for Representing the model object (on admin site)"""
-        return self.task
-    
-    def get_absolute_url(self):
-        """Returns the url to access a detail record for this task."""
-        return reverse('deburrtask-detail', args = [str(self.id)])
-    
-class Plating_Task(models.Model):
-    """
-    Model for the required sheet metal forming tasks on the press:
-    """
-    title = models.CharField(max_length = 100, null = True)
-    
-    def __str__(self):
-        """String for Representing the model objetc (on admin site)"""
-        return self.title
-    
-class PlatingTaskInstance(models.Model):
-    """
-    Model for representing multiple sheet metal forming tasks required to be
-    completed
-    """
-    task = models.CharField(max_length = 100, null = True)
-    part = models.ForeignKey("Part", on_delete=models.CASCADE, null = True)
-    TASK_STATUS = ((2,"Not Started"),(3, "On Hold"),(10, "Complete"),
-                   (1, "In Progress"))
-    status = models.IntegerField(choices = TASK_STATUS, 
-                              blank = False, default = 2,
-                              help_text = "Set task completion status")
-    #Create Time String and decimal fields
-    createtime = models.CharField(max_length = 50, null = True, blank = True)
-    createtimenum = models.DecimalField(decimal_places=2, max_digits=14, null=True, blank = True)
-    #Start Time String and decimal fields
-    starttime = models.CharField(max_length = 50, null = True, blank = True)
-    starttimenum = models.DecimalField(decimal_places=2,max_digits=14,null=True, blank = True)
-    #Time to start string feild
-    timetostart = models.CharField(max_length = 50,null=True, blank = True)
-    #Finish Time String field
-    finishtime = models.CharField(max_length = 50, null = True, blank = True)
-    #Time taken str field
-    timetaken = models.CharField(max_length = 50,null=True, blank = True)    
-    class Meta:
-        ordering = ['part','status']
-
-    def __str__(self):
-        """String for Representing the model object (on admin site)"""
-        return self.task
-    
-    def get_absolute_url(self):
-        """Returns the url to access a detail record for this task."""
-        return reverse('platingtask-detail', args = [str(self.id)])
-
-class Wire_Cut_Task(models.Model):
-    """
-    Model for the required sheet metal forming tasks on the press:
-    """
-    title = models.CharField(max_length = 100, null = True)
-    
-    def __str__(self):
-        """String for Representing the model objetc (on admin site)"""
-        return self.title
-    
-class WireCutTaskInstance(models.Model):
-    """
-    Model for representing multiple sheet metal forming tasks required to be
-    completed
-    """
-    task = models.CharField(max_length = 100, null = True)
-    part = models.ForeignKey("Part", on_delete=models.CASCADE, null = True)
-    TASK_STATUS = ((2,"Not Started"),(3, "On Hold"),(10, "Complete"),
-                   (1, "In Progress"))
-    status = models.IntegerField(choices = TASK_STATUS, 
-                              blank = False, default = 2,
-                              help_text = "Set task completion status")
-    createtime = models.CharField(max_length = 50, null = True, blank = True)
-    createtimenum = models.DecimalField(decimal_places=2, max_digits=14, null=True, blank = True)
-    #Start Time String and decimal fields
-    starttime = models.CharField(max_length = 50, null = True, blank = True)
-    starttimenum = models.DecimalField(decimal_places=2,max_digits=14,null=True, blank = True)
-    #Time to start string feild
-    timetostart = models.CharField(max_length = 50,null=True, blank = True)
-    #Finish Time String field
-    finishtime = models.CharField(max_length = 50, null = True, blank = True)
-    #Time taken str field
-    timetaken = models.CharField(max_length = 50,null=True, blank = True)
-    class Meta:
-        ordering = ['part','status']
-
-    def __str__(self):
-        """String for Representing the model object (on admin site)"""
-        return self.task
-    
-    def get_absolute_url(self):
-        """Returns the url to access a detail record for this task."""
-        return reverse('wirecuttask-detail', args = [str(self.id)])
-
-
-class Pitching_Task(models.Model):
-    """
-    Model for the required sheet metal forming tasks on the press:
-    """
-    title = models.CharField(max_length = 100, null = True)
-    
-    def __str__(self):
-        """String for Representing the model objetc (on admin site)"""
-        return self.title
-    
-class PitchingTaskInstance(models.Model):
-    """
-    Model for representing multiple sheet metal forming tasks required to be
-    completed
-    """
-    task = models.CharField(max_length = 100, null = True)
-    part = models.ForeignKey("Part", on_delete=models.CASCADE, null = True)
-    TASK_STATUS = ((2,"Not Started"),(3, "On Hold"),(10, "Complete"),
-                   (1, "In Progress"))
-    status = models.IntegerField(choices = TASK_STATUS, 
-                              blank = False, default = 2,
-                              help_text = "Set task completion status")
-    createtime = models.CharField(max_length = 50, null = True, blank = True)
-    createtimenum = models.DecimalField(decimal_places=2, max_digits=14, null=True, blank = True)
-    #Start Time String and decimal fields
-    starttime = models.CharField(max_length = 50, null = True, blank = True)
-    starttimenum = models.DecimalField(decimal_places=2,max_digits=14,null=True, blank = True)
-    #Time to start string feild
-    timetostart = models.CharField(max_length = 50,null=True, blank = True)
-    #Finish Time String field
-    finishtime = models.CharField(max_length = 50, null = True, blank = True)
-    #Time taken str field
-    timetaken = models.CharField(max_length = 50,null=True, blank = True)    
-    class Meta:
-        ordering = ['part','status']
-
-    def __str__(self):
-        """String for Representing the model objetc (on admin site)"""
-        return self.task
-    
-    def get_absolute_url(self):
-        """Returns the url to access a detail record for this task."""
-        return reverse('pitchingtask-detail', args = [str(self.id)])
-
-
-
-class Forming_Task(models.Model):
-    """
-    Model for the required sheet metal forming tasks on the press:
-    """
-    title = models.CharField(max_length = 100, null = True)
-    
-    def __str__(self):
-        """String for Representing the model objetc (on admin site)"""
-        return self.title
-    
-class FormingTaskInstance(models.Model):
-    """
-    Model for representing multiple sheet metal forming tasks required to be
-    completed
-    """
-    task = models.CharField(max_length = 100, null = True)
-    part = models.ForeignKey("Part", on_delete=models.CASCADE, null = True)
-    TASK_STATUS = ((2,"Not Started"),(3, "On Hold"),(10, "Complete"),
-                   (1, "In Progress"))
-    status = models.IntegerField(choices = TASK_STATUS, 
-                              blank = False, default = 2,
-                              help_text = "Set task completion status")
-    #Create Time String and decimal fields
-    createtime = models.CharField(max_length = 50, null = True, blank = True)
-    createtimenum = models.DecimalField(decimal_places=2, max_digits=14, null=True, blank = True)
-    #Start Time String and decimal fields
-    starttime = models.CharField(max_length = 50, null = True, blank = True)
-    starttimenum = models.DecimalField(decimal_places=2,max_digits=14,null=True, blank = True)
-    #Time to start string feild
-    timetostart = models.CharField(max_length = 50,null=True, blank = True)
-    #Finish Time String field
-    finishtime = models.CharField(max_length = 50, null = True, blank = True)
-    #Time taken str field
-    timetaken = models.CharField(max_length = 50,null=True, blank = True)
-    
-    class Meta:
-        ordering = ['part','status']
-
-    def __str__(self):
-        """String for Representing the model objetc (on admin site)"""
-        return self.task
-    
-    def get_absolute_url(self):
-        """Returns the url to access a detail record for this task."""
-        return reverse('formingtask-detail', args = [str(self.id)])
-    
-class Stacking_Task(models.Model):
-    """Model representing the multiple stacking tasks that must be 
-    completed for a part to be finished"""
-    title = models.CharField(max_length = 100, help_text = " Name of a\
-                             component prep task")
-    description = models.TextField(max_length = 1000, help_text = "Task\
-                                   description to aid new employees", null=True,
-                                   blank = True)
-        
-    order = models.IntegerField(null=True)
-    
-    class Meta:
-        ordering = ['order']
-    def __str__(self):
-        """String for Representing the model objetc (on admin site)"""
-        return self.title
     
     
-class StackingTaskInstance(models.Model):
-    """ Instance of a specific component prep task"""
-    task = models.CharField(max_length= 100, null = True)
-    part = models.ForeignKey("Part",on_delete=models.CASCADE, null=True)
-    TASK_STATUS = ((2,"Not Started"),(3, "On Hold"),(10, "Complete"),
-                   (1, "In Progress"))
-    
-    status = models.IntegerField(choices= TASK_STATUS, 
-                              blank = False, default = 2, help_text = "Set \
-                                  task completion status")
-    createtime = models.CharField(max_length = 50, null = True, blank = True)
-    createtimenum = models.DecimalField(decimal_places=2, max_digits=14, null=True, blank = True)
-    #Start Time String and decimal fields
-    starttime = models.CharField(max_length = 50, null = True, blank = True)
-    starttimenum = models.DecimalField(decimal_places=2,max_digits=14,null=True, blank = True)
-    #Time to start string feild
-    timetostart = models.CharField(max_length = 50,null=True, blank = True)
-    #Finish Time String field
-    finishtime = models.CharField(max_length = 50, null = True, blank = True)
-    #Time taken str field
-    timetaken = models.CharField(max_length = 50,null=True, blank = True)
-    class Meta:
-        ordering = ['part','status']
-        
-    def __str__(self):
-        """string for representing the Model object."""
-        return self.task
-    
-    def get_absolute_url(self):
-        """Returns the url to access a detail record for this task."""
-        return reverse('stackingtask-detail', args = [str(self.id)])
-    
-class Component_Prep_Task(models.Model):
-    """Model representing the multiple component prep tasks that must be 
-    completed for a part to be finished"""
-    title = models.CharField(max_length = 100, help_text = " Name of a\
-                             component prep task")
-    description = models.TextField(max_length = 1000, help_text = "Task\
-                                   description to aid new employees", null=True,
-                                   blank = True)
-    order = models.IntegerField(null=True)
-    
-    class Meta:
-        ordering = ['order']
-    
-    def __str__(self):
-        """String for Representing the model objetc (on admin site)"""
-        return self.title
-    
-class ComponentPrepTaskInstance(models.Model):
-    """ Instance of a specific component prep task"""
-    task = models.CharField(max_length= 100, null = True)
-    part = models.ForeignKey("Part",on_delete=models.CASCADE, null=True)
-    TASK_STATUS = ((2,"Not Started"),(3, "On Hold"),(10, "Complete"),
-                   (1, "In Progress"))
-    
-    status = models.IntegerField(choices= TASK_STATUS, 
-                              blank = False, default = 2, help_text = "Set \
-                                  task completion status")
-    #Create Time String and decimal fields
-    createtime = models.CharField(max_length = 50, null = True, blank = True)
-    createtimenum = models.DecimalField(decimal_places=2, max_digits=14, null=True, blank = True)
-    #Start Time String and decimal fields
-    starttime = models.CharField(max_length = 50, null = True, blank = True)
-    starttimenum = models.DecimalField(decimal_places=2,max_digits=14,null=True, blank = True)
-    #Time to start string feild
-    timetostart = models.CharField(max_length = 50,null=True, blank = True)
-    #Finish Time String field
-    finishtime = models.CharField(max_length = 50, null = True, blank = True)
-    #Time taken str field
-    timetaken = models.CharField(max_length = 50,null=True, blank = True)
-    class Meta:
-        ordering = ['part','status']
-        
-        
-    def __str__(self):
-        """string for representing the Model object."""
-        return self.task
-    
-    def get_absolute_url(self):
-        """Returns the url to access a detail record for this task."""
-        return reverse('cptask-detail', args = [str(self.id)])
-    
-class Team(models.Model):
-    """ Model to Represent teams"""
-    title = models.CharField(max_length = 100, null = True)
-    
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        ordering = ['title']
-    
-class Part(models.Model):
-    """ Model represents a Part to be completed"""
+class Gym_class(models.Model):
+    """ Model represents a Gym Class"""
     title = models.CharField(max_length = 100)
-    serial = models.CharField(max_length = 20,null = True)
-    CORE_TYPES = (("Radiator", "Radiator"), ("Intercooler", "Intercooler"),
-                  ("Oilcooler", "Oilcooler"),("ERS cooler", "ERS cooler"))
-    core_type = models.CharField(choices = CORE_TYPES, max_length = 40, blank = False,
-                                 default = "Rad", help_text = "Set Core Type")
-    Work_Order = models.CharField(max_length = 6, null = True, help_text= "Define Work Order No")
-    team = models.ForeignKey(Team, on_delete = models.RESTRICT, null = True)
-    Component_Prep_tasks = models.ManyToManyField(Component_Prep_Task, help_text = "Select \
-                                     the component prep tasks \
-                                         to be completed.",
-                                         blank = True) 
-    Stacking_tasks = models.ManyToManyField(Stacking_Task, help_text = "Select\
-                                         the required stacking tasks.",
-                                         blank = True)
-    Forming_tasks = models.ManyToManyField(Forming_Task, help_text = "Select\
-                                           the required forming tasks.",
-                                         blank = True)
-    Header_Plate_tasks = models.ManyToManyField("Header_Plate_Task", help_text = "\
-                                                Select The nessessary header \
-                                                    plate tasks",
-                                         blank = True)
-    Pitching_tasks = models.ManyToManyField(Pitching_Task, help_text = "\
-                                            Select the nessessary pitching \
-                                                tasks",
-                                         blank = True)
-    Wire_Cut_tasks = models.ManyToManyField(Wire_Cut_Task, help_text = "\
-                                            Select the nessessary wire cut\
-                                                tasks",
-                                         blank = True)
-    Deburr_tasks = models.ManyToManyField(Deburr_Task, help_text = "\
-                                            Select the nessessary deburr\
-                                                tasks",
-                                         blank = True)
-    Plating_tasks = models.ManyToManyField(Plating_Task, help_text = "\
-                                            Select the nessessary plating\
-                                                tasks",
-                                         blank = True)
-    pub_date = models.DateTimeField("time published", auto_now=True)
-    priority = models.IntegerField(null=True, default = 30, help_text = "\
-                                            Select the nessessary priority\
-                                                ")
+    description = models.TextField(max_length=1000)
     
     archive = models.BooleanField(null = True, default=False)
     def __str__(self):
@@ -400,283 +22,121 @@ class Part(models.Model):
     
     def get_absolute_url(self):
         """Returns the url to access a sepecfic author instance."""
-        return reverse("part-detail", args=[str(self.id)])
-    
-    
+        return reverse("classes", args=[str(self.id)])
     
     class Meta:
-        ordering = ['priority','title','serial']
-    
-class Header_Plate_Task(models.Model):
-    """Model representing the required Header Plate Tasks"""
-    title = models.CharField(max_length = 100, help_text = "Enter the Name\
-                     of a header plate machining task")
-    order = models.IntegerField(null=True)
-    
-    class Meta:
-        ordering = ['order']
-                     
+        ordering = ['title']  
+
+class Timetable(models.Model):
+    """ Model that holds all of the current classes being run at the gym"""
+    title = models.CharField(max_length=100, null=True)
+    # Monday Traning Feilds from 6am to 5pm
+    mon6 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="mon6", null=True)
+    mon7 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="mon7", null=True)
+    mon8 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="mon8", null=True)
+    mon9 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="mon9", null=True)
+    mon10 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="mon10", null=True)
+    mon11 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="mon11", null=True)
+    mon12 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="mon12", null=True)
+    mon13 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="mon13", null=True)
+    mon14 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="mon14", null=True)
+    mon15 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="mon15", null=True)
+    mon16 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="mon16", null=True)
+    mon17 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="mon17", null=True)
+    # Tuesday from 6am to 5pm
+    tue6 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="tue6", null=True)
+    tue7 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="tue7", null=True)
+    tue8 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="tue8", null=True)
+    tue9 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="tue9", null=True)
+    tue10 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="tue10", null=True)
+    tue11 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="tue11", null=True)
+    tue12 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="tue12", null=True)
+    tue13 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="tue13", null=True)
+    tue14 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="tue14", null=True)
+    tue15 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="tue15", null=True)
+    tue16 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="tue16", null=True)
+    tue17 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="tue17", null=True)
+    # Wednesday from 6am to 5pm
+    wed6 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="wed6", null=True)
+    wed7 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="wed7", null=True)
+    wed8 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="wed8", null=True)
+    wed9 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="wed9", null=True)
+    wed10 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="wed10", null=True)
+    wed11 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="wed11", null=True)
+    wed12 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="wed12", null=True)
+    wed13 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="wed13", null=True)
+    wed14 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="wed14", null=True)
+    wed15 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="wed15", null=True)
+    wed16 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="wed16", null=True)
+    wed17 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="wed17", null=True)
+    # Thursday from 6am to 5pm
+    thur6 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="thur6", null=True)
+    thur7 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="thur7", null=True)
+    thur8 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="thur8", null=True)
+    thur9 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="thur9", null=True)
+    thur10 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="thur10", null=True)
+    thur11 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="thur11", null=True)
+    thur12 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="thur12", null=True)
+    thur13 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="thur13", null=True)
+    thur14 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="thur14", null=True)
+    thur15 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="thur15", null=True)
+    thur16 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="thur16", null=True)
+    thur17 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="thur17", null=True)
+
+
+
+
+
     def __str__(self):
-        """string for representing the Model object."""
         return self.title
-                     
-class HeaderPlateTaskInstance(models.Model):
-    """Model representing the multiple instances of a header plate task"""
-    task = models.CharField(max_length = 100, null = True)
-    part = models.ForeignKey("Part", on_delete = models.CASCADE,null = True)
-    TASK_STATUS = ((2,"Not Started"),(3, "On Hold"),(10, "Complete"),
-                   (1, "In Progress"))
+                        
+
+class Member(models.Model):
+    """ Model that represents a Gym Member"""
+    join_date = models.DateTimeField("time published", auto_now=True)
+    first_name = models.CharField(max_length=100, null=False, blank = False)
+    last_name = models.CharField(max_length=100, null=False, blank = False)
+    active_member = models.BooleanField(null=False, default=True)
+    profile_picture = models.ImageField(upload_to='static/profile_pictures', null=True)
     
-    status = models.IntegerField(choices= TASK_STATUS, 
-                              blank = False, default = "a", help_text = "Set \
-                                  task completion status")
-    #Create Time String and decimal fields
-    createtime = models.CharField(max_length = 50, null = True, blank = True)
-    createtimenum = models.DecimalField(decimal_places=2, max_digits=14, null=True, blank = True)
-    #Start Time String and decimal fields
-    starttime = models.CharField(max_length = 50, null = True, blank = True)
-    starttimenum = models.DecimalField(decimal_places=2,max_digits=14,null=True, blank = True)
-    #Time to start string feild
-    timetostart = models.CharField(max_length = 50,null=True, blank = True)
-    #Finish Time String field
-    finishtime = models.CharField(max_length = 50, null = True, blank = True)
-    #Time taken str field
-    timetaken = models.CharField(max_length = 50,null=True, blank = True)
-    class Meta:
-        ordering = ['part','status']
-        
     def __str__(self):
-        """string for representing the Model object."""
-        return self.task
+        output = str(self.first_name)+str(self.last_name)
+        return output
     
     def get_absolute_url(self):
-        """Returns the url to access a detail record for this task."""
-        return reverse('hptask-detail', args = [str(self.id)])                          
-                        
-    
-# Create Sheet Metal Forming Tasks
-@receiver(m2m_changed, sender = Part.Forming_tasks.through)
-def CreateNewFormingTaskInstance(sender, **kwargs):
-    obj = Part.objects.latest("pub_date")
-    Formingtask_list = obj.Forming_tasks.all()
-    Created_Time = datetime.datetime.now()
-    Created_Time = Created_Time.strftime("%X")+" on the "+Created_Time.strftime("%d/%m/%Y")
-    for task in Formingtask_list:
-       try:
-           FormingTaskInstance.objects.get(task= task, part=obj)
-       except:
-           FormingTaskInstance.objects.create(task= task, part=obj, status=2, createtime = Created_Time, createtimenum = time.time())
-           
-    #Delete excess tasks if requested on update
-    RequestedTaskList = Formingtask_list
-    CurrentTaskList = FormingTaskInstance.objects.filter(part=obj)
-    list1 = []
-    list2 = []
-    for task in CurrentTaskList.values_list():
-        list1.append(task[1])
-    for task in RequestedTaskList.values_list():
-        list2.append(task[1])
-    for task in list1:
-        if task in list2:
-            pass
-        else:
-            FormingTaskInstance.objects.filter(task= task, part = obj).delete()
-            
-            
-# Create Component Prep Tasks  
-@receiver(m2m_changed, sender = Part.Component_Prep_tasks.through)
-def CreateNewCPTaskInstance(sender, **kwargs):
-    obj = Part.objects.latest("pub_date")
-    CPtask_list = obj.Component_Prep_tasks.all()
-    Created_Time = datetime.datetime.now()
-    Created_Time = Created_Time.strftime("%X")+" on the "+Created_Time.strftime("%d/%m/%Y")
-    for task in CPtask_list:
-       try:
-           ComponentPrepTaskInstance.objects.get(task= task, part=obj)
-       except:
-           ComponentPrepTaskInstance.objects.create(task= task, part=obj, status=2, createtime = Created_Time, createtimenum = time.time())
-           
-    #Delete excess tasks if requested on update
-    RequestedTaskList = CPtask_list
-    CurrentTaskList = ComponentPrepTaskInstance.objects.filter(part=obj)
-    list1 = []
-    list2 = []
-    for task in CurrentTaskList.values_list():
-        list1.append(task[1])
-    for task in RequestedTaskList.values_list():
-        list2.append(task[1])
-    for task in list1:
-        if task in list2:
-            pass
-        else:
-            ComponentPrepTaskInstance.objects.filter(task= task, part = obj).delete()
-            
-        
+        """ Returns the url for each individual member"""
 
-# Create Stacking Tasks
-@receiver(m2m_changed, sender = Part.Stacking_tasks.through)
-def CreateNewStackingTaskInstance(sender, **kwargs):
-    obj = Part.objects.latest("pub_date")
-    Stacktask_list = obj.Stacking_tasks.all()
-    Created_Time = datetime.datetime.now()
-    Created_Time = Created_Time.strftime("%X")+" on the "+Created_Time.strftime("%d/%m/%Y")
-    for task in Stacktask_list:
-        try:
-            StackingTaskInstance.objects.get(task = task, part = obj)
-        except:
-            StackingTaskInstance.objects.create(task = task, part = obj, status = 2, createtime = Created_Time, createtimenum = time.time())
-            
-    #Delete excess tasks if requested on update
-    RequestedTaskList = Stacktask_list
-    CurrentTaskList = StackingTaskInstance.objects.filter(part=obj)
-    list1 = []
-    list2 = []
-    for task in CurrentTaskList.values_list():
-        list1.append(task[1])
-    for task in RequestedTaskList.values_list():
-        list2.append(task[1])
-    for task in list1:
-        if task in list2:
-            pass
-        else:
-            StackingTaskInstance.objects.filter(task= task, part = obj).delete()
-            
-# Create Header Plate Machining Tasks
-@receiver(m2m_changed, sender = Part.Header_Plate_tasks.through)
-def CreateNewHeaderPlateTaskInstance(sender, **kwargs):
-    obj = Part.objects.latest("pub_date")
-    HPtask_list = obj.Header_Plate_tasks.all()
-    Created_Time = datetime.datetime.now()
-    Created_Time = Created_Time.strftime("%X")+" on the "+Created_Time.strftime("%d/%m/%Y")
-    for task in HPtask_list:
-        try:
-            HeaderPlateTaskInstance.objects.get(task = task, part = obj)
-        except:
-            HeaderPlateTaskInstance.objects.create(task = task, part = obj, status = 2, createtime = Created_Time, createtimenum = time.time())
     
-    #Delete excess tasks if requested on update
-    RequestedTaskList = HPtask_list
-    CurrentTaskList = HeaderPlateTaskInstance.objects.filter(part=obj)
-    list1 = []
-    list2 = []
-    for task in CurrentTaskList.values_list():
-        list1.append(task[1])
-    for task in RequestedTaskList.values_list():
-        list2.append(task[1])
-    for task in list1:
-        if task in list2:
-            pass
-        else:
-            HeaderPlateTaskInstance.objects.filter(task= task, part = obj).delete()
+    class Meta:
+        ordering = ['last_name','first_name','join_date']
             
-# Create Pitching Tasks
-@receiver(m2m_changed, sender = Part.Pitching_tasks.through)
-def CreateNewPitchingTaskInstance(sender, **kwargs):
-    obj = Part.objects.latest("pub_date")
-    Pitchingtask_list = obj.Pitching_tasks.all()
-    Created_Time = datetime.datetime.now()
-    Created_Time = Created_Time.strftime("%X")+" on the "+Created_Time.strftime("%d/%m/%Y")
-    for task in Pitchingtask_list:
-        try:
-            PitchingTaskInstance.objects.get(task = task, part = obj)
-        except:
-            PitchingTaskInstance.objects.create(task = task, part = obj, status = 2, createtime = Created_Time, createtimenum = time.time())
-    
-    #Delete excess tasks if requested on update
-    RequestedTaskList = Pitchingtask_list
-    CurrentTaskList = PitchingTaskInstance.objects.filter(part=obj)
-    list1 = []
-    list2 = []
-    for task in CurrentTaskList.values_list():
-        list1.append(task[1])
-    for task in RequestedTaskList.values_list():
-        list2.append(task[1])
-    for task in list1:
-        if task in list2:
-            pass
-        else:
-            PitchingTaskInstance.objects.filter(task= task, part = obj).delete()
             
-# Create WireCut Tasks
-@receiver(m2m_changed, sender = Part.Wire_Cut_tasks.through)
-def CreateNewWireCutTaskInstance(sender, **kwargs):
-    obj = Part.objects.latest("pub_date")
-    WireCuttask_list = obj.Wire_Cut_tasks.all()
-    Created_Time = datetime.datetime.now()
-    Created_Time = Created_Time.strftime("%X")+" on the "+Created_Time.strftime("%d/%m/%Y")
-    for task in WireCuttask_list:
-        try:
-            WireCutTaskInstance.objects.get(task = task, part = obj)
-        except:
-            WireCutTaskInstance.objects.create(task = task, part = obj, status = 2, createtime = Created_Time, createtimenum = time.time())
+# # Create Component Prep Tasks  
+# @receiver(m2m_changed, sender = Part.Component_Prep_tasks.through)
+# def CreateNewCPTaskInstance(sender, **kwargs):
+#     obj = Part.objects.latest("pub_date")
+#     CPtask_list = obj.Component_Prep_tasks.all()
+#     Created_Time = datetime.datetime.now()
+#     Created_Time = Created_Time.strftime("%X")+" on the "+Created_Time.strftime("%d/%m/%Y")
+#     for task in CPtask_list:
+#        try:
+#            ComponentPrepTaskInstance.objects.get(task= task, part=obj)
+#        except:
+#            ComponentPrepTaskInstance.objects.create(task= task, part=obj, status=2, createtime = Created_Time, createtimenum = time.time())
+           
+#     #Delete excess tasks if requested on update
+#     RequestedTaskList = CPtask_list
+#     CurrentTaskList = ComponentPrepTaskInstance.objects.filter(part=obj)
+#     list1 = []
+#     list2 = []
+#     for task in CurrentTaskList.values_list():
+#         list1.append(task[1])
+#     for task in RequestedTaskList.values_list():
+#         list2.append(task[1])
+#     for task in list1:
+#         if task in list2:
+#             pass
+#         else:
+#             ComponentPrepTaskInstance.objects.filter(task= task, part = obj).delete()
             
-    #Delete excess tasks if requested on update
-    RequestedTaskList = WireCuttask_list
-    CurrentTaskList = WireCutTaskInstance.objects.filter(part=obj)
-    list1 = []
-    list2 = []
-    for task in CurrentTaskList.values_list():
-        list1.append(task[1])
-    for task in RequestedTaskList.values_list():
-        list2.append(task[1])
-    for task in list1:
-        if task in list2:
-            pass
-        else:
-            WireCutTaskInstance.objects.filter(task= task, part = obj).delete()
             
-# Create Deburr Tasks
-@receiver(m2m_changed, sender = Part.Deburr_tasks.through)
-def CreateNewDeburrTaskInstance(sender, **kwargs):
-    obj = Part.objects.latest("pub_date")
-    Deburrtask_list = obj.Deburr_tasks.all()
-    Created_Time = datetime.datetime.now()
-    Created_Time = Created_Time.strftime("%X")+" on the "+Created_Time.strftime("%d/%m/%Y")
-    for task in Deburrtask_list:
-        try:
-            DeburrTaskInstance.objects.get(task = task, part = obj)
-        except:
-            DeburrTaskInstance.objects.create(task = task, part = obj, status = 2, createtime = Created_Time, createtimenum = time.time())
-            
-    #Delete excess tasks if requested on update
-    RequestedTaskList = Deburrtask_list
-    CurrentTaskList = DeburrTaskInstance.objects.filter(part=obj)
-    list1 = []
-    list2 = []
-    for task in CurrentTaskList.values_list():
-        list1.append(task[1])
-    for task in RequestedTaskList.values_list():
-        list2.append(task[1])
-    for task in list1:
-        if task in list2:
-            pass
-        else:
-            DeburrTaskInstance.objects.filter(task= task, part = obj).delete()       
-            
-# Create Plating Tasks
-@receiver(m2m_changed, sender = Part.Plating_tasks.through)
-def CreateNewPlatingTaskInstance(sender, **kwargs):
-    obj = Part.objects.latest("pub_date")
-    Platingtask_list = obj.Plating_tasks.all()
-    Created_Time = datetime.datetime.now()
-    Created_Time = Created_Time.strftime("%X")+" on the "+Created_Time.strftime("%d/%m/%Y")
-    for task in Platingtask_list:
-        try:
-            PlatingTaskInstance.objects.get(task = task, part = obj)
-        except:
-            PlatingTaskInstance.objects.create(task = task, part = obj, status = 2, createtime = Created_Time, createtimenum = time.time())
-            
-    #Delete excess tasks if requested on update
-    RequestedTaskList = Platingtask_list
-    CurrentTaskList = PlatingTaskInstance.objects.filter(part=obj)
-    list1 = []
-    list2 = []
-    for task in CurrentTaskList.values_list():
-        list1.append(task[1])
-    for task in RequestedTaskList.values_list():
-        list2.append(task[1])
-    for task in list1:
-        if task in list2:
-            pass
-        else:
-            PlatingTaskInstance.objects.filter(task= task, part = obj).delete()  
