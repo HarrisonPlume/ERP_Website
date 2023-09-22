@@ -82,13 +82,53 @@ class Timetable(models.Model):
     thur15 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="thur15", null=True)
     thur16 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="thur16", null=True)
     thur17 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="thur17", null=True)
-
-
-
-
+    # Friday from 6am to 5pm
+    fri6 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="fri6", null=True)
+    fri7 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="fri7", null=True)
+    fri8 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="fri8", null=True)
+    fri9 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="fri9", null=True)
+    fri10 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="fri10", null=True)
+    fri11 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="fri11", null=True)
+    fri12 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="fri12", null=True)
+    fri13 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="fri13", null=True)
+    fri14 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="fri14", null=True)
+    fri15 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="fri15", null=True)
+    fri16 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="fri16", null=True)
+    fri17 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="fri17", null=True)
+    # Saturday from 6am to 5pm
+    sat6 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sat6", null=True)
+    sat7 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sat7", null=True)
+    sat8 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sat8", null=True)
+    sat9 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sat9", null=True)
+    sat10 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sat10", null=True)
+    sat11 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sat11", null=True)
+    sat12 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sat12", null=True)
+    sat13 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sat13", null=True)
+    sat14 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sat14", null=True)
+    sat15 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sat15", null=True)
+    sat16 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sat16", null=True)
+    sat17 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sat17", null=True)
+    # Sunday from 6am to 5pm 
+    sun6 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sun6", null=True)
+    sun7 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sun7", null=True)
+    sun8 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sun8", null=True)
+    sun9 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sun9", null=True)
+    sun10 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sun10", null=True)
+    sun11 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sun11", null=True)
+    sun12 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sun12", null=True)
+    sun13 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sun13", null=True)
+    sun14 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sun14", null=True)
+    sun15 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sun15", null=True)
+    sun16 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sun16", null=True)
+    sun17 = models.OneToOneField(Gym_class, on_delete=models.CASCADE, related_name="sun17", null=True)
 
     def __str__(self):
+        """ Uswed for the Admin site to modify the Timetables"""
         return self.title
+    
+    def get_absolute_url(self):
+        """Returns the url to access a sepecfic author instance."""
+        return reverse("classlist", args=[str(1)])
                         
 
 class Member(models.Model):
@@ -105,6 +145,7 @@ class Member(models.Model):
     
     def get_absolute_url(self):
         """ Returns the url for each individual member"""
+        return None
 
     
     class Meta:

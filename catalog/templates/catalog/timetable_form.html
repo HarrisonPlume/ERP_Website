@@ -1,0 +1,159 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+<style>
+table, th, td {
+  border-collapse: collapse;
+  border: 1px solid #0f2e08;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+a.ex3 {color: #bababa;
+font-weight: bold;
+}
+
+a.ex2{color: #bababa;}
+</style>
+<body>
+<h1>Update Timetable</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    <div style="display: none">{{form}}</div>
+    <table border="1">
+      <tr>
+          <th>        </th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+          <th>Sunday</th>
+      </tr>
+      <tr>
+          <td>6am</td>
+              <td>{{form.mon6}}</td>
+              <td>{{form.tue6}}</td>
+              <td>{{form.wed6}}</td>
+              <td>{{form.thur6}}</td>
+              <td>{{form.fri6}}</td>
+              <td>{{form.sat6}}</td>
+              <td>{{form.sun6}}</td>
+      </tr>
+      <tr>
+          <td>7am</td>
+          <td>{{form.mon7}}</td>
+          <td>{{form.tue7}}</td>
+          <td>{{form.wed7}}</td>
+          <td>{{form.thur7}}</td>
+          <td>{{form.fri7}}</td>
+          <td>{{form.sat7}}</td>
+          <td>{{form.sun7}}</td>
+      </tr>
+      <tr>
+          <td>8am</td>
+          <td>{{form.mon8}}</td>
+          <td>{{form.tue8}}</td>
+          <td>{{form.wed8}}</td>
+          <td>{{form.thur8}}</td>
+          <td>{{form.fri8}}</td>
+          <td>{{form.sat8}}</td>
+          <td>{{form.sun8}}</td>
+      </tr>
+      <tr>
+          <td>9am</td>
+          <td>{{form.mon9}}</td>
+          <td>{{form.tue9}}</td>
+          <td>{{form.wed9}}</td>
+          <td>{{form.thur9}}</td>
+          <td>{{form.fri9}}</td>
+          <td>{{form.sat9}}</td>
+          <td>{{form.sun9}}</td>
+      </tr>
+      <tr>
+          <td>10am</td>
+          <td>{{form.mon10}}</td>
+          <td>{{form.tue10}}</td>
+          <td>{{form.wed10}}</td>
+          <td>{{form.thur10}}</td>
+          <td>{{form.fri10}}</td>
+          <td>{{form.sat10}}</td>
+          <td>{{form.sun10}}</td>
+      </tr>
+      <tr>
+          <td>11am</td>
+          <td>{{form.mon11}}</td>
+          <td>{{form.tue11}}</td>
+          <td>{{form.wed11}}</td>
+          <td>{{form.thur11}}</td>
+          <td>{{form.fri11}}</td>
+          <td>{{form.sat11}}</td>
+          <td>{{form.sun11}}</td>
+      </tr>
+      <tr>
+          <td>12pm</td>
+          <td>{{form.mon12}}</td>
+          <td>{{form.tue12}}</td>
+          <td>{{form.wed12}}</td>
+          <td>{{form.thur12}}</td>
+          <td>{{form.fri12}}</td>
+          <td>{{form.sat12}}</td>
+          <td>{{form.sun12}}</td>
+      </tr>
+      <tr>
+          <td>1pm</td>
+          <td>{{form.mon13}}</td>
+          <td>{{form.tue13}}</td>
+          <td>{{form.wed13}}</td>
+          <td>{{form.thur13}}</td>
+          <td>{{form.fri13}}</td>
+          <td>{{form.sat13}}</td>
+          <td>{{form.sun13}}</td>
+      </tr>
+      <tr>
+          <td>2pm</td>
+          <td>{{form.mon14}}</td>
+          <td>{{form.tue14}}</td>
+          <td>{{form.wed14}}</td>
+          <td>{{form.thur14}}</td>
+          <td>{{form.fri14}}</td>
+          <td>{{form.sat14}}</td>
+          <td>{{form.sun14}}</td>
+      </tr>
+      <tr>
+          <td>3pm</td>
+          <td>{{form.mon15}}</td>
+          <td>{{form.tue15}}</td>
+          <td>{{form.wed15}}</td>
+          <td>{{form.thur15}}</td>
+          <td>{{form.fri15}}</td>
+          <td>{{form.sat15}}</td>
+          <td>{{form.sun15}}</td>
+      </tr>
+      <tr>
+          <td>4pm</td>
+          <td>{{form.mon16}}</td>
+          <td>{{form.tue16}}</td>
+          <td>{{form.wed16}}</td>
+          <td>{{form.thur16}}</td>
+          <td>{{form.fri16}}</td>
+          <td>{{form.sat16}}</td>
+          <td>{{form.sun16}}</td>
+      </tr>
+      <tr>
+          <td>5pm</td>
+          <td>{{form.mon17}}</td>
+          <td>{{form.tue17}}</td>
+          <td>{{form.wed17}}</td>
+          <td>{{form.thur17}}</td>
+          <td>{{form.fri17}}</td>
+          <td>{{form.sat17}}</td>
+          <td>{{form.sun17}}</td>
+      </tr>
+  </table>
+    <input type="submit" value="Update">
+  </form>  
+</body>
+{% endblock %}

@@ -20,3 +20,6 @@ class ArchiveForm(forms.ModelForm):
     class Meta:
         model = Gym_class
         fields = ("archive",)
+
+class timetableForm(forms.ModelForm):
+    mon6 = forms.ChoiceField(label="Monday 6am", choices=Gym_class.objects.all(), required=True)

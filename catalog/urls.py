@@ -3,8 +3,8 @@ from . import views
 #Index
 urlpatterns = [
     path("", views.index, name = "index"),
-    path("classtimetable/", views.Gym_class.as_view(), name='classlist'),
-    path("classupdate/", views.class_update, name="classupdate")
+    path("classtimetable/<int:pk>/", views.Gym_class.as_view(), name='classlist'),
+    path("classtimetable/<int:pk>/update", views.timetable_update.as_view(), name="timetable_update"),
     ]
 
 #Componet Prep urls
