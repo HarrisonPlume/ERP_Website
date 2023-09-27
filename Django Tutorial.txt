@@ -1,1 +1,0 @@
-developer.mozilla.org/en-us/docs/Learn/Server-side/Django/Deployment.

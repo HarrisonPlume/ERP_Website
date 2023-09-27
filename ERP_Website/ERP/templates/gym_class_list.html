@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Current Classes Offered</h1>
+  {% if user.is_authenticated %}
+  <h2>Authenticated</h2>
+  {% endif %}
+  {% if gym_class_list %}
+  <ul>
+    {% for class in gym_class_list %}
+      <li>
+        <a href="{{ class.get_absolute_url }}">{{ class.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no classes in the system</p>
+  {% endif %} 
+{% endblock %}
