@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% load static %}
+
+<head >
+<style> 
+a.ex3 {color: #28a745}
+</style>
+</head>
+<h1>{{timetable_class.gym_class.title}}</h1>
+<h2>Time: {{timetable_class.time_slot}}</h2>
+<h2>Date: {{timetable_class.day}}</h2>
+<h3>Class Status: {{timetable_class.get_status_display}}</h3>
+
+
+{% endblock %}

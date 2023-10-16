@@ -1,0 +1,180 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+<style>
+table, th, td {
+  border-collapse: collapse;
+  border: 2px solid #0f2e08;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+a.ex3 {color: #bababa;
+font-weight: bold;
+}
+
+a.ex2{color: #bababa;}
+</style>
+<body>
+<h1>Update Timetable</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div style="display: none;">{{formset}}</div>
+        <table border="1">
+            <tr>
+                <th>        </th>
+                <th>Monday ({{Monday}})</th>
+                <th>Tuesday ({{Tuesday}})</th>
+                <th>Wednesday ({{Wednesday}})</th>
+                <th>Thursday ({{Thursday}})</th>
+                <th>Friday ({{Friday}})</th>
+                <th>Saturday ({{Saturday}})</th>
+                <th>Sunday ({{Sunday}})</th>
+            </tr>
+            <tr>
+                <td>5am</td>
+                    <td>{{formset.forms.1.gym_class}}</td> <!-- Monday-->
+                    <td>{{formset.forms.5.gym_class}}</td> <!-- Tuesday-->
+                    <td>{{formset.forms.6.gym_class}}</td> <!-- Wednesday-->
+                    <td>{{formset.forms.4.gym_class}}</td> <!-- Thursday-->
+                    <td>{{formset.forms.0.gym_class}}</td> <!-- Friday -->
+                    <td>{{formset.forms.2.gym_class}}</td> <!-- Saturday -->
+                    <td>{{formset.forms.3.gym_class}}</td> <!-- Sunday -->
+            </tr>
+            <tr>
+                <td>6am</td>
+                    <td>{{formset.forms.8.gym_class}}</td> <!-- Monday-->
+                    <td>{{formset.forms.12.gym_class}}</td> <!-- Tuesday-->
+                    <td>{{formset.forms.13.gym_class}}</td> <!-- Wednesday-->
+                    <td>{{formset.forms.11.gym_class}}</td> <!-- Thursday-->
+                    <td>{{formset.forms.7.gym_class}}</td> <!-- Friday -->
+                    <td>{{formset.forms.9.gym_class}}</td> <!-- Saturday -->
+                    <td>{{formset.forms.10.gym_class}}</td> <!-- Sunday -->
+            </tr>
+            <tr>
+                <td>7am</td>
+                    <td>{{formset.forms.15.gym_class}}</td> <!-- Monday-->
+                    <td>{{formset.forms.19.gym_class}}</td> <!-- Tuesday-->
+                    <td>{{formset.forms.20.gym_class}}</td> <!-- Wednesday-->
+                    <td>{{formset.forms.18.gym_class}}</td> <!-- Thursday-->
+                    <td>{{formset.forms.14.gym_class}}</td> <!-- Friday -->
+                    <td>{{formset.forms.16.gym_class}}</td> <!-- Saturday -->
+                    <td>{{formset.forms.17.gym_class}}</td> <!-- Sunday -->
+            </tr>
+            <tr>
+                <td>8am</td>
+                    <td>{{formset.forms.22.gym_class}}</td> <!-- Monday-->
+                    <td>{{formset.forms.26.gym_class}}</td> <!-- Tuesday-->
+                    <td>{{formset.forms.27.gym_class}}</td> <!-- Wednesday-->
+                    <td>{{formset.forms.25.gym_class}}</td> <!-- Thursday-->
+                    <td>{{formset.forms.21.gym_class}}</td> <!-- Friday -->
+                    <td>{{formset.forms.23.gym_class}}</td> <!-- Saturday -->
+                    <td>{{formset.forms.24.gym_class}}</td> <!-- Sunday -->
+            </tr>
+            <tr>
+                <td>9am</td>
+                    <td>{{formset.forms.29.gym_class}}</td> <!-- Monday-->
+                    <td>{{formset.forms.33.gym_class}}</td> <!-- Tuesday-->
+                    <td>{{formset.forms.34.gym_class}}</td> <!-- Wednesday-->
+                    <td>{{formset.forms.32.gym_class}}</td> <!-- Thursday-->
+                    <td>{{formset.forms.28.gym_class}}</td> <!-- Friday -->
+                    <td>{{formset.forms.30.gym_class}}</td> <!-- Saturday -->
+                    <td>{{formset.forms.31.gym_class}}</td> <!-- Sunday -->
+            </tr>
+            <tr>
+                <td>10am</td>
+                    <td>{{formset.forms.36.gym_class}}</td> <!-- Monday-->
+                    <td>{{formset.forms.40.gym_class}}</td> <!-- Tuesday-->
+                    <td>{{formset.forms.41.gym_class}}</td> <!-- Wednesday-->
+                    <td>{{formset.forms.39.gym_class}}</td> <!-- Thursday-->
+                    <td>{{formset.forms.35.gym_class}}</td> <!-- Friday -->
+                    <td>{{formset.forms.37.gym_class}}</td> <!-- Saturday -->
+                    <td>{{formset.forms.38.gym_class}}</td> <!-- Sunday -->
+            </tr>
+            <tr>
+                <td>11am</td>
+                    <td>{{formset.forms.43.gym_class}}</td> <!-- Monday-->
+                    <td>{{formset.forms.47.gym_class}}</td> <!-- Tuesday-->
+                    <td>{{formset.forms.48.gym_class}}</td> <!-- Wednesday-->
+                    <td>{{formset.forms.46.gym_class}}</td> <!-- Thursday-->
+                    <td>{{formset.forms.42.gym_class}}</td> <!-- Friday -->
+                    <td>{{formset.forms.44.gym_class}}</td> <!-- Saturday -->
+                    <td>{{formset.forms.45.gym_class}}</td> <!-- Sunday -->
+            </tr>
+            <tr>
+                <td>12pm</td>
+                    <td>{{formset.forms.50.gym_class}}</td> <!-- Monday-->
+                    <td>{{formset.forms.54.gym_class}}</td> <!-- Tuesday-->
+                    <td>{{formset.forms.55.gym_class}}</td> <!-- Wednesday-->
+                    <td>{{formset.forms.53.gym_class}}</td> <!-- Thursday-->
+                    <td>{{formset.forms.49.gym_class}}</td> <!-- Friday -->
+                    <td>{{formset.forms.51.gym_class}}</td> <!-- Saturday -->
+                    <td>{{formset.forms.52.gym_class}}</td> <!-- Sunday -->
+            </tr>
+            <tr>
+                <td>1pm</td>
+                    <td>{{formset.forms.57.gym_class}}</td> <!-- Monday-->
+                    <td>{{formset.forms.61.gym_class}}</td> <!-- Tuesday-->
+                    <td>{{formset.forms.62.gym_class}}</td> <!-- Wednesday-->
+                    <td>{{formset.forms.60.gym_class}}</td> <!-- Thursday-->
+                    <td>{{formset.forms.56.gym_class}}</td> <!-- Friday -->
+                    <td>{{formset.forms.58.gym_class}}</td> <!-- Saturday -->
+                    <td>{{formset.forms.59.gym_class}}</td> <!-- Sunday -->
+            </tr>
+            <tr>
+                <td>2pm</td>
+                    <td>{{formset.forms.64.gym_class}}</td> <!-- Monday-->
+                    <td>{{formset.forms.68.gym_class}}</td> <!-- Tuesday-->
+                    <td>{{formset.forms.69.gym_class}}</td> <!-- Wednesday-->
+                    <td>{{formset.forms.67.gym_class}}</td> <!-- Thursday-->
+                    <td>{{formset.forms.63.gym_class}}</td> <!-- Friday -->
+                    <td>{{formset.forms.65.gym_class}}</td> <!-- Saturday -->
+                    <td>{{formset.forms.66.gym_class}}</td> <!-- Sunday -->
+            </tr>
+            <tr>
+                <td>3pm</td>
+                    <td>{{formset.forms.71.gym_class}}</td> <!-- Monday-->
+                    <td>{{formset.forms.75.gym_class}}</td> <!-- Tuesday-->
+                    <td>{{formset.forms.76.gym_class}}</td> <!-- Wednesday-->
+                    <td>{{formset.forms.74.gym_class}}</td> <!-- Thursday-->
+                    <td>{{formset.forms.70.gym_class}}</td> <!-- Friday -->
+                    <td>{{formset.forms.72.gym_class}}</td> <!-- Saturday -->
+                    <td>{{formset.forms.73.gym_class}}</td> <!-- Sunday -->
+            </tr>
+            <tr>
+                <td>4pm</td>
+                    <td>{{formset.forms.78.gym_class}}</td> <!-- Monday-->
+                    <td>{{formset.forms.82.gym_class}}</td> <!-- Tuesday-->
+                    <td>{{formset.forms.83.gym_class}}</td> <!-- Wednesday-->
+                    <td>{{formset.forms.81.gym_class}}</td> <!-- Thursday-->
+                    <td>{{formset.forms.77.gym_class}}</td> <!-- Friday -->
+                    <td>{{formset.forms.79.gym_class}}</td> <!-- Saturday -->
+                    <td>{{formset.forms.80.gym_class}}</td> <!-- Sunday -->
+            </tr>
+            <tr>
+                <td>5pm</td>
+                    <td>{{formset.forms.85.gym_class}}</td> <!-- Monday-->
+                    <td>{{formset.forms.89.gym_class}}</td> <!-- Tuesday-->
+                    <td>{{formset.forms.90.gym_class}}</td> <!-- Wednesday-->
+                    <td>{{formset.forms.88.gym_class}}</td> <!-- Thursday-->
+                    <td>{{formset.forms.84.gym_class}}</td> <!-- Friday -->
+                    <td>{{formset.forms.86.gym_class}}</td> <!-- Saturday -->
+                    <td>{{formset.forms.87.gym_class}}</td> <!-- Sunday -->
+            </tr>
+            <tr>
+                <td>6pm</td>
+                    <td>{{formset.forms.92.gym_class}}</td> <!-- Monday-->
+                    <td>{{formset.forms.96.gym_class}}</td> <!-- Tuesday-->
+                    <td>{{formset.forms.97.gym_class}}</td> <!-- Wednesday-->
+                    <td>{{formset.forms.95.gym_class}}</td> <!-- Thursday-->
+                    <td>{{formset.forms.91.gym_class}}</td> <!-- Friday -->
+                    <td>{{formset.forms.93.gym_class}}</td> <!-- Saturday -->
+                    <td>{{formset.forms.94.gym_class}}</td> <!-- Sunday -->
+            </tr>
+        </table>
+
+        <button type="submit">Update</button>
+    </form> 
+</body>
+{% endblock %}
