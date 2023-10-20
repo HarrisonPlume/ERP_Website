@@ -1,9 +1,9 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Current Classes Offered</h1>
+  <h2>Current Classes Offered</h2>
   {% if user.is_authenticated %}
-  <h2>Authenticated</h2>
+  <h3>Authenticated</h3>
   {% endif %}
   {% if gym_class_list %}
   <ul>

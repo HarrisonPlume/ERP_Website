@@ -38,12 +38,22 @@ class timetable_class_instance(models.Model):
     status = models.CharField(max_length=1,choices=Class_status,blank=False,
                               default="a", help_text="Class status")
     
+    max_participants = models.CharField(max_length = 2, null = True , blank = True)
+    current_participants = models.CharField(max_length = 2, null = True, blank = True)
+    
+
+    def get_update_url(self):
+        return reverse("update_timetable_class", args=[str(self.id)])
+
+    
+    
     class Meta:
         ordering = ['time_slot', 'day']
     
     def __str__(self):
         """String that represents the Gym Instance"""
         return f'{self.time_slot} {self.day} '
+    
 
 
 class Timetable(models.Model):

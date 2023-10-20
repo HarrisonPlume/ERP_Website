@@ -28,7 +28,7 @@ th span
 </style>
 </head>
 {% load static %}
-    <h1 style="color:#030303"> Class Timetable</h1>
+    <h2 style="color:#000000"> Class Timetable</h1>
     <hr>
     {% if user.is_authenticated %}
       <h5 style="color:#000000">Admin Panel</h5>
@@ -103,8 +103,8 @@ th span
             <td><a href="{% url 'timetable_class' 55 %}">{{queryset.wed10.gym_class}}</a></td>
             <td><a href="{% url 'timetable_class' 56 %}">{{queryset.thur10.gym_class}}</a></td>
             <td><a href="{% url 'timetable_class' 57 %}">{{queryset.fri10.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sat10.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sun10.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 58 %}">{{queryset.sat10.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 59 %}">{{queryset.sun10.gym_class}}</a></td>
         </tr>
         <tr>
             <td>11am</td>
@@ -114,77 +114,77 @@ th span
             <td><a href="{% url 'classes' 2 %}">{{queryset.thur11.gym_class}}</a></td>
             <td><a href="{% url 'classes' 2 %}">{{queryset.fri11.gym_class}}</a></td>
             <td><a href="{% url 'classes' 2 %}">{{queryset.sat11.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sun11.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 60 %}">{{queryset.sun11.gym_class}}</a></td>
         </tr>
         <tr>
             <td>12pm</td>
             <td><a href="{% url 'timetable_class' 8 %}">{{queryset.mon12.gym_class}}</a></td>
             <td><a href="{% url 'timetable_class' 20 %}">{{queryset.tue12.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.wed12.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.thur12.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.fri12.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sat12.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sun12.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 61 %}">{{queryset.wed12.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 62 %}">{{queryset.thur12.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 63 %}">{{queryset.fri12.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 64 %}">{{queryset.sat12.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 65 %}">{{queryset.sun12.gym_class}}</a></td>
         </tr>
         <tr>
             <td>1pm</td>
             <td><a href="{% url 'timetable_class' 9 %}">{{queryset.mon13.gym_class}}</a></td>
             <td><a href="{% url 'timetable_class' 21 %}">{{queryset.tue13.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.wed13.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.thur13.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.fri13.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sat13.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sun13.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 66 %}">{{queryset.wed13.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 67 %}">{{queryset.thur13.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 68 %}">{{queryset.fri13.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 69 %}">{{queryset.sat13.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 70 %}">{{queryset.sun13.gym_class}}</a></td>
         </tr>
         <tr>
             <td>2pm</td>
             <td><a href="{% url 'timetable_class' 10 %}">{{queryset.mon14.gym_class}}</a></td>
             <td><a href="{% url 'timetable_class' 22 %}">{{queryset.tue14.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.wed14.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.thur14.gym_class}}</a></td>         
-            <td><a href="{% url 'classes' 2 %}">{{queryset.fri14.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sat14.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sun14.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 71 %}">{{queryset.wed14.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 72 %}">{{queryset.thur14.gym_class}}</a></td>         
+            <td><a href="{% url 'timetable_class' 73 %}">{{queryset.fri14.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 74 %}">{{queryset.sat14.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 75 %}">{{queryset.sun14.gym_class}}</a></td>
         </tr>
         <tr>
             <td>3pm</td>
             <td><a href="{% url 'timetable_class' 11 %}">{{queryset.mon15.gym_class}}</a></td>
             <td><a href="{% url 'timetable_class' 23 %}">{{queryset.tue15.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.wed15.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.thur15.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.fri15.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sat15.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sun15.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 76 %}">{{queryset.wed15.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 77 %}">{{queryset.thur15.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 78 %}">{{queryset.fri15.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 79 %}">{{queryset.sat15.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 80 %}">{{queryset.sun15.gym_class}}</a></td>
         </tr>
         <tr>
             <td>4pm</td>
             <td><a href="{% url 'timetable_class' 12 %}">{{queryset.mon16.gym_class}}</a></td>
             <td><a href="{% url 'timetable_class' 24 %}">{{queryset.tue16.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.wed16.gym_class}}</a></td>            
-            <td><a href="{% url 'classes' 2 %}">{{queryset.thur16.gym_class}}</a></td>            
-            <td><a href="{% url 'classes' 2 %}">{{queryset.fri16.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sat16.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sun16.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 81 %}">{{queryset.wed16.gym_class}}</a></td>            
+            <td><a href="{% url 'timetable_class' 82 %}">{{queryset.thur16.gym_class}}</a></td>            
+            <td><a href="{% url 'timetable_class' 83 %}">{{queryset.fri16.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 84 %}">{{queryset.sat16.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 85 %}">{{queryset.sun16.gym_class}}</a></td>
         </tr>
         <tr>
             <td>5pm</td>
             <td><a href="{% url 'timetable_class' 13 %}">{{queryset.mon17.gym_class}}</a></td>
             <td><a href="{% url 'timetable_class' 25 %}">{{queryset.tue17.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.wed17.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.thur17.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.fri17.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sat17.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sun17.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 86 %}">{{queryset.wed17.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 87 %}">{{queryset.thur17.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 88 %}">{{queryset.fri17.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 89 %}">{{queryset.sat17.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 90 %}">{{queryset.sun17.gym_class}}</a></td>
         </tr>
         <tr>
             <td>6pm</td>
             <td><a href="{% url 'timetable_class' 14 %}">{{queryset.mon18.gym_class}}</a></td>
             <td><a href="{% url 'timetable_class' 28 %}">{{queryset.tue18.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.wed18.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.thur18.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.fri18.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sat18.gym_class}}</a></td>
-            <td><a href="{% url 'classes' 2 %}">{{queryset.sun18.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 91 %}">{{queryset.wed18.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 92 %}">{{queryset.thur18.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 93 %}">{{queryset.fri18.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 94 %}">{{queryset.sat18.gym_class}}</a></td>
+            <td><a href="{% url 'timetable_class' 95 %}">{{queryset.sun18.gym_class}}</a></td>
 
         </tr>
     </table>

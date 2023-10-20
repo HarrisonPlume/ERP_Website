@@ -8,4 +8,5 @@ urlpatterns = [
     path("timetable/", views.Show_Timetable, name='timetable'),
     path("timetable/update", views.Update_TimeTable, name="timetable_update"),
     path("timetable_class/<int:pk>", views.Timetable_Class_detail.as_view(), name="timetable_class"),
+    path("timetable_class/<int:pk>/update", views.timetable_class_instace_update.as_view(), name="update_timetable_class"),
     ]

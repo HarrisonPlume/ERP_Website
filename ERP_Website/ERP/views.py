@@ -87,6 +87,13 @@ def Update_TimeTable(request):
     return render(request, "timetable_update_form.html", context=context)
 
 
+class timetable_class_instace_update(generic.UpdateView):
+    model = timetable_class_instance
+    fields = "__all__"
+    template_name= "update_timetable_class.html"
+    success_url = reverse_lazy('timetable')
+
+
 def Show_Timetable(request):
     queryset = Timetable.objects.first()
     
