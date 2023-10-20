@@ -3,7 +3,10 @@
 {% block content %}
   <h2>Current Classes Offered</h2>
   {% if user.is_authenticated %}
-  <h3>Authenticated</h3>
+  <hr>
+  <p>Admin Pannel</p>
+  <a href = " {% url 'create_gym_class' %}">Add Class</a>
+  <hr>
   {% endif %}
   {% if gym_class_list %}
   <ul>

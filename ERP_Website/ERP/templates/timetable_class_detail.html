@@ -5,19 +5,20 @@
 
 <head >
 <style> 
-a.ex3 {color: #28a745}
+a.ex3 {color: #ffffff}
+a.ex2 {color: #000000}
 </style>
 </head>
 {% if user.is_authenticated %}
     <hr>
     <h5 style="color:#000000">Admin Panel</h5>
-    <p style="color:#bababa"><a class = "ex3" href = "{{ timetable_class.get_update_url }}">Update Class</a></p>
+    <p style="color:#bababa"><a class = "ex2" href = "{{ timetable_class.get_update_url }}">Update Class</a></p>
     <hr>
 {% endif %}
 
-<h1>{{timetable_class.gym_class.title}}</h1>
-<h2>Time: {{timetable_class.time_slot}}</h2>
-<h2>Date: {{timetable_class.day}}</h2>
+<h2>{{timetable_class.gym_class.title}}</h2>
+<h3>Time: {{timetable_class.time_slot}}</h3>
+<h3>Date: {{timetable_class.day}}</h3>
 <h3>Class Status: {{timetable_class.get_status_display}}</h3>
 {% if timetable_class.max_participants %}
     <h4>Current Participants: {{timetable_class.current_participants}}/{{timetable_class.max_participants}}</h4>

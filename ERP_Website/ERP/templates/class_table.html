@@ -4,14 +4,14 @@
 <head>
 <style>
 table, th, td {
-  border: 2px solid #0f2e08;
+  border: 2px solid #234091;
   letter-spacing: 1px;
   font-size: 0.8rem;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-a.ex3 {color: #000000;}
+a.ex3 {color: #ffffff;}
 a.ex2{color: #000000; text-align:center}
 
 
@@ -28,11 +28,11 @@ th span
 </style>
 </head>
 {% load static %}
-    <h2 style="color:#000000"> Class Timetable</h1>
+    <h2 style="color:#050505"> Class Timetable</h1>
     <hr>
     {% if user.is_authenticated %}
       <h5 style="color:#000000">Admin Panel</h5>
-      <p style="color:#bababa"><a class = "ex3" href = "{% url 'timetable_update' %}">Update Timetable</a></p>
+      <p style="color:#bababa"><a class = "ex2" href = "{% url 'timetable_update' %}">Update Timetable</a></p>
       <hr>
     {% endif %}
       <table border="1">
@@ -48,7 +48,7 @@ th span
         </tr>
         <tr>
             <td>5am</td>
-                <td><a class = "ex3" href="{% url 'timetable_class' 1 %}">{{queryset.mon5.gym_class}}</a></td>
+                <td><a href="{% url 'timetable_class' 1 %}">{{queryset.mon5.gym_class}}</a></td>
                 <td><a href="{% url 'timetable_class' 26 %}">{{queryset.tue5.gym_class}}</a></td>
                 <td><a href="{% url 'timetable_class' 29 %}">{{queryset.wed5.gym_class}}</a></td>
                 <td><a href="{% url 'timetable_class' 30 %}">{{queryset.thur5.gym_class}}</a></td>

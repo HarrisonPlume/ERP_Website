@@ -33,6 +33,11 @@ class Gym_ClassListView(generic.ListView):
     context_object_name = "gym_class_list"
     template_name = "gym_class_list.html"
 
+class Create_Gym_Class(generic.CreateView):
+    model = Gym_class
+    template_name = "create_gymclass_form.html"
+    fields = "__all__"
+
 
 class Timetable_Class_detail(generic.DetailView):
     model = timetable_class_instance
