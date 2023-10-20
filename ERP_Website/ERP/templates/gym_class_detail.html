@@ -8,7 +8,7 @@
 a.ex3 {color: #ffffff}
 </style>
 </head>
-{% if user.is_authenticated %}
+{% if user.is_staff %}
       <hr>
       <h5 style="color:#000000">Admin Panel</h5>
       <p style="color:#bababa"><a class = "ex2" href = "{% url 'update_gym_class' pk=pk %}">Update Class</a></p>

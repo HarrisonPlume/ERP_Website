@@ -30,7 +30,7 @@ th span
 {% load static %}
     <h2 style="color:#050505"> Class Timetable</h1>
     <hr>
-    {% if user.is_authenticated %}
+    {% if user.is_staff %}
       <h5 style="color:#000000">Admin Panel</h5>
       <p style="color:#bababa"><a class = "ex2" href = "{% url 'timetable_update' %}">Update Timetable</a></p>
       <hr>

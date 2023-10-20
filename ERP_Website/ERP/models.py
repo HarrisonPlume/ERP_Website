@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse # generate urls' by reversing url patterns
 from django.contrib.auth.models import User
+from os.path import join as path_join
 from datetime import date
 from django.db.models.signals import m2m_changed, post_save, pre_save
 from django.dispatch import receiver
@@ -8,6 +9,8 @@ from django.utils import timezone
 from django.db.models import Case, When, Value
 import time
 import datetime
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Gym_class(models.Model):
     """ Model represents a Gym Class"""
@@ -53,6 +56,40 @@ class timetable_class_instance(models.Model):
     def __str__(self):
         """String that represents the Gym Instance"""
         return f'{self.time_slot} {self.day} '
+    
+
+def user_profile_image_path(instance, filename):
+    username = instance.user.username
+    return path_join('profile_pics', username+".jpg")
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=500, blank=True)
+    profile_picture = models.ImageField(upload_to=user_profile_image_path, blank=True, null=True)
+    is_staff = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['user'] 
+
+    def __str__(self):
+        """String that represents the Gym Instance"""
+        return f'{self.user}'
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.userprofile.save()
+
+@receiver(post_save, sender=UserProfile)
+def update_user_is_staff(sender, instance, **kwargs):
+    # Update the is_staff field of the related User object
+    if instance.user.is_staff != instance.is_staff:
+        instance.user.is_staff = instance.is_staff
+        instance.user.save()
     
 
 
@@ -171,7 +208,10 @@ class Timetable(models.Model):
     sun17 = models.OneToOneField(timetable_class_instance, on_delete=models.CASCADE, related_name="sun17", null=True, blank=True)
     sun18 = models.OneToOneField(timetable_class_instance, on_delete=models.CASCADE, related_name="sun18", null=True, blank=True)
 
-
+    class Meta:
+        permissions = [
+            ("update_timetable", "Can update the Timetable")
+        ]
 
     def __str__(self):
         return self.title

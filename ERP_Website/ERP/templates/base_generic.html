@@ -64,7 +64,7 @@ text-decoration: none; color:#ffffff;}
           <a class = "ex1" href="{% url 'index' %}">Home</a>
           <br>
           {% if user.is_authenticated %}
-          <div style="color:#000000;" class = "ex2"> User: {{ user.get_username }}</div>
+          <div style="color:#000000;" class = "ex2">{{ user.get_username }}</div>
           <a class = "ex1"href="{% url 'logout'%}?next={{request.path}}">Logout</a>
           {% else %}
           <a class = "ex1" href="{% url 'login'%}?next={{request.path}}">Login</a>
