@@ -28,6 +28,11 @@ class Class_detail(generic.DetailView):
     model = Gym_class
     template_name ="gym_class_detail.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pk'] = self.object.pk  # Pass the PK to the template
+        return context
+
 class Gym_ClassListView(generic.ListView):
     model = Gym_class
     context_object_name = "gym_class_list"
@@ -36,6 +41,11 @@ class Gym_ClassListView(generic.ListView):
 class Create_Gym_Class(generic.CreateView):
     model = Gym_class
     template_name = "create_gymclass_form.html"
+    fields = "__all__"
+
+class Update_Gym_Class(generic.UpdateView):
+    model =Gym_class
+    template_name = "update_gymclass_form.html"
     fields = "__all__"
 
 

@@ -5,10 +5,17 @@
 
 <head >
 <style> 
-a.ex3 {color: #28a745}
+a.ex3 {color: #ffffff}
 </style>
 </head>
-<h1>{{gym_class.title}}</h1>
+{% if user.is_authenticated %}
+      <hr>
+      <h5 style="color:#000000">Admin Panel</h5>
+      <p style="color:#bababa"><a class = "ex2" href = "{% url 'update_gym_class' pk=pk %}">Update Class</a></p>
+      <hr>
+    {% endif %}
+<h2>{{gym_class.title}}</h2>
+<h3>{{gym_class.description}}</h3>
 
 
 {% endblock %}
