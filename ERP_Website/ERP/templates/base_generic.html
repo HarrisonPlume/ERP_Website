@@ -64,13 +64,16 @@ text-decoration: none; color:#ffffff;}
           <a class = "ex1" href="{% url 'index' %}">Home</a>
           <br>
           {% if user.is_authenticated %}
+          <hr>
           <div style="color:#000000;" class = "ex2">{{ user.get_username }}</div>
+          <div><a class = "ex1" href = "{% url 'user_profile_detail' user.pk|add:'-1' %}">Profile</a></div>
           <a class = "ex1"href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+          <hr>
           {% else %}
+          <hr>
           <a class = "ex1" href="{% url 'login'%}?next={{request.path}}">Login</a>
+          <hr>
           {% endif %}
-          
-          <br>
           <a class = "ex1" href="{% url 'gym_classes' %}">Class List</a>
           <br>
           <a class = "ex1" href="{% url 'timetable' %}">Class Timetable</a>

@@ -1,7 +1,7 @@
 from typing import Any
 from django.shortcuts import render, redirect
 from django.views import generic
-from .models import Gym_class, Timetable, timetable_class_instance
+from .models import Gym_class, Timetable, timetable_class_instance, UserProfile
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -10,6 +10,7 @@ from django.urls import reverse, reverse_lazy
 from django.forms import modelformset_factory
 from .forms import TimetableUpdateForm
 import datetime as dt
+import os
 
 # Create your views here.
 
@@ -63,6 +64,15 @@ class Timetable_Class_detail(generic.DetailView):
     model = timetable_class_instance
     context_object_name = "timetable_class"
     template_name="timetable_class_detail.html"
+
+
+class User_Profile_detail(generic.DetailView):
+    model = UserProfile
+    template_name = "user_profile_detail.html"
+    context_object_name = "user_profile"
+    print("Profile_pic location:")
+    print(UserProfile.objects.first().profile_picture.url)
+
     
 
 timetableFormSet = modelformset_factory(timetable_class_instance, form=TimetableUpdateForm, extra=0)

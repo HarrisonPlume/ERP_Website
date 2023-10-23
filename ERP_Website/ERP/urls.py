@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 #Index
 urlpatterns = [
     path("", views.index, name = "index"),
@@ -11,4 +13,9 @@ urlpatterns = [
     path("timetable/update", views.Update_TimeTable, name="timetable_update"),
     path("timetable_class/<int:pk>", views.Timetable_Class_detail.as_view(), name="timetable_class"),
     path("timetable_class/<int:pk>/update", views.timetable_class_instace_update.as_view(), name="update_timetable_class"),
+    path("user_profile/<int:pk>", views.User_Profile_detail.as_view(), name="user_profile_detail")
     ]
+
+# Serve static files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

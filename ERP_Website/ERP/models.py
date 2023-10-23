@@ -65,8 +65,10 @@ def user_profile_image_path(instance, filename):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
+    # first_name = models.CharField(max_length=40, blank=True, null=True)
+    # last_name = models.CharField(max_length=40, blank=True, null=True)
     profile_picture = models.ImageField(upload_to=user_profile_image_path, blank=True, null=True)
-    is_staff = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['user'] 
