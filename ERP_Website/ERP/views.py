@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from .models import Gym_class, Timetable, timetable_class_instance
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 from django.forms import modelformset_factory
@@ -11,6 +12,16 @@ from .forms import TimetableUpdateForm
 import datetime as dt
 
 # Create your views here.
+
+# Check to see if user is a staff member
+class StaffUserRequiredMixin:
+    @classmethod
+    def as_view(cls, **kwargs):
+        view = super().as_view(**kwargs)
+        return user_passes_test(lambda u: u.is_staff)(view)
+    
+def is_staff_user(user):
+    return user.is_staff
 
 def index(request):
     """View for the home page of the website"""
@@ -38,16 +49,15 @@ class Gym_ClassListView(generic.ListView):
     context_object_name = "gym_class_list"
     template_name = "gym_class_list.html"
 
-class Create_Gym_Class(generic.CreateView):
+class Create_Gym_Class(StaffUserRequiredMixin, generic.CreateView):
     model = Gym_class
     template_name = "create_gymclass_form.html"
     fields = "__all__"
 
-class Update_Gym_Class(generic.UpdateView):
+class Update_Gym_Class(StaffUserRequiredMixin, generic.UpdateView):
     model =Gym_class
     template_name = "update_gymclass_form.html"
     fields = "__all__"
-
 
 class Timetable_Class_detail(generic.DetailView):
     model = timetable_class_instance
@@ -102,7 +112,7 @@ def Update_TimeTable(request):
     return render(request, "timetable_update_form.html", context=context)
 
 
-class timetable_class_instace_update(generic.UpdateView):
+class timetable_class_instace_update(StaffUserRequiredMixin, generic.UpdateView):
     model = timetable_class_instance
     fields = "__all__"
     template_name= "update_timetable_class.html"
