@@ -1,15 +1,13 @@
 from django.db import models
 from django.urls import reverse # generate urls' by reversing url patterns
 from django.contrib.auth.models import User
+from django.contrib import messages
 from os.path import join as path_join
 from datetime import date
-from django.db.models.signals import m2m_changed, post_save, pre_save
+from django.db.models.signals import m2m_changed, post_save, pre_save, pre_delete
 from django.dispatch import receiver
 from django.utils import timezone
-from django.db.models import Case, When, Value
-import time
-import datetime
-from django.db.models.signals import post_save
+from django.utils.translation import gettext as _
 from django.dispatch import receiver
 
 class Gym_class(models.Model):
@@ -25,6 +23,10 @@ class Gym_class(models.Model):
     def get_absolute_url(self):
         """Returns the url to access a sepecfic author instance."""
         return reverse("classes", args=[str(self.id)])
+    
+    def has_foreign_key_references(self):
+        # Check if the Gym_class instance is referenced by any foreign key relationships
+        return self.timetable_class_instance_set.exists()
     
     class Meta:
         ordering = ['title']  
@@ -92,7 +94,7 @@ def update_user_is_staff(sender, instance, **kwargs):
     if instance.user.is_staff != instance.is_staff:
         instance.user.is_staff = instance.is_staff
         instance.user.save()
-    
+  
 
 
 class Timetable(models.Model):

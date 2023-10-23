@@ -60,6 +60,24 @@ class Update_Gym_Class(StaffUserRequiredMixin, generic.UpdateView):
     template_name = "update_gymclass_form.html"
     fields = "__all__"
 
+class Delete_Gym_Class(StaffUserRequiredMixin, generic.DeleteView):
+    model =Gym_class
+    template_name = "delete_gym_class_form.html"
+    context_object_name = 'object'
+    success_url = reverse_lazy("gym_classes")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['has_foreign_key_references'] = self.object.has_foreign_key_references()
+        return context
+    
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.has_foreign_key_references():
+            # If there are references, display a message instead of the delete button
+            return self.render_to_response(self.get_context_data())
+        return super().get(request, *args, **kwargs)
+
 class Timetable_Class_detail(generic.DetailView):
     model = timetable_class_instance
     context_object_name = "timetable_class"
@@ -70,8 +88,6 @@ class User_Profile_detail(generic.DetailView):
     model = UserProfile
     template_name = "user_profile_detail.html"
     context_object_name = "user_profile"
-    print("Profile_pic location:")
-    print(UserProfile.objects.first().profile_picture.url)
 
     
 

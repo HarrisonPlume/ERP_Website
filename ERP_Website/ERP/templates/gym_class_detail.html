@@ -12,6 +12,7 @@ a.ex3 {color: #ffffff}
       <hr>
       <h5 style="color:#000000">Admin Panel</h5>
       <p style="color:#bababa"><a class = "ex2" href = "{% url 'update_gym_class' pk=pk %}">Update Class</a></p>
+      <p style="color:#bababa"><a class = "ex2" href = "{% url 'delete_gym_class' pk=pk %}">Delete Class</a></p>
       <hr>
     {% endif %}
 <h2>{{gym_class.title}}</h2>

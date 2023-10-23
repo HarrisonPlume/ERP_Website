@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h2>Delete {{ object }}</h2>
+{% if has_foreign_key_references %}
+    <p>This object cannot be deleted because it is currently in the Active Timetable</p>
+{% else %}
+  <form method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    <button type="submit">Confirm</button>
+  </form>
+{% endif %}
+
+{% endblock %}
