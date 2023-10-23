@@ -74,7 +74,7 @@ class UserProfile(models.Model):
         ordering = ['user'] 
 
     def __str__(self):
-        """String that represents the Gym Instance"""
+        """String that Gym User's username"""
         return f'{self.user}'
 
 @receiver(post_save, sender=User)

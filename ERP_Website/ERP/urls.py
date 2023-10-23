@@ -16,6 +16,3 @@ urlpatterns = [
     path("user_profile/<int:pk>", views.User_Profile_detail.as_view(), name="user_profile_detail")
     ]
 
-# Serve static files during development
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

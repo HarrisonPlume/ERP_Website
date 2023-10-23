@@ -7,14 +7,21 @@
     {% block title %}<title >{{user_profile.user}}'s Profile</title>{% endblock %}
 <style> 
 a.ex3 {color: #ffffff}
+
+.rounded-image {
+      border-radius: 20px; /* You can adjust the radius value to make the corners more or less rounded */
+    }
 </style>
 </head>
-        <h2 style="color:#000000">{{user_profile.profile_picture.url}}  </h2>
+        <br>
+        <h2>{{user_profile.user}}</h2>
         {% if user_profile.profile_picture %}
-            <img src="{{user_profile.profile_picture.url}}" alt="Profile Picture" height = 200px>
+            <img class = "rounded-image" src="{{user_profile.profile_picture.url}}" alt="Profile Picture" height = 200px>
         {% else %}
             <p>No profile picture available.</p>
         {% endif %}
+        <br>
+        <br>
         <h5>Currently Enrolled Classes</h5>
         <ul>
             <li>CrossFit Wed 25/10/2023</li>
