@@ -20,8 +20,8 @@ a.ex2 {color: #000000}
 <h3>Time: {{timetable_class.time_slot}}</h3>
 <h3>Date: {{timetable_class.day}}</h3>
 <h3>Class Status: {{timetable_class.get_status_display}}</h3>
-{% if timetable_class.max_participants %}
-    <h4>Current Participants: {{timetable_class.current_participants}}/{{timetable_class.max_participants}}</h4>
+{% if timetable_class.gym_class.max_participants %}
+    <h4>Current Participants: {{timetable_class.current_participants}}/{{timetable_class.gym_class.max_participants}}</h4>
 {% endif %}
 <button>Register</button>
 

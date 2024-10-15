@@ -16,6 +16,7 @@ class Gym_class(models.Model):
     description = models.TextField(max_length=1000)
     
     archive = models.BooleanField(null = True, default=False)
+    max_participants = models.CharField(max_length = 2, null = True , blank = True)
     def __str__(self):
         """String for Representing the model objetc (on admin site)"""
         return self.title
@@ -43,7 +44,6 @@ class timetable_class_instance(models.Model):
     status = models.CharField(max_length=1,choices=Class_status,blank=False,
                               default="a", help_text="Class status")
     
-    max_participants = models.CharField(max_length = 2, null = True , blank = True)
     current_participants = models.CharField(max_length = 2, null = True, blank = True)
     
 

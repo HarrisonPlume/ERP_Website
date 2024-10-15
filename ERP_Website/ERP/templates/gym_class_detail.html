@@ -17,6 +17,9 @@ a.ex3 {color: #ffffff}
     {% endif %}
 <h2>{{gym_class.title}}</h2>
 <h3>{{gym_class.description}}</h3>
+{% if gym_class.max_participants %}
+  <p>Max Participants: {{gym_class.max_participants}}</p>
+{% endif %}
 
 
 {% endblock %}

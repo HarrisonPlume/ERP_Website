@@ -114,33 +114,29 @@ def Update_TimeTable(request):
     today = dt.date.today()
     dayname = today.strftime('%A')
     day_list = []
-    day_list.append(today.strftime("%d/%m/%y")+str(" Today"))
+    day_list.append(dayname+" "+today.strftime("%d/%m/%y"))
     for i in range(1,7):
         newdate = today + dt.timedelta(i)
-        day_list.append(newdate.strftime("%d/%m/%y"))
+        day_list.append(str(newdate.strftime('%A'))+" "+newdate.strftime("%d/%m/%y"))
 
-    day_dict = {"Monday":0,"Tuesday":1,"Wednesday":2,"Thursday":3,"Friday":4,"Saturday":5,"Sunday":6}
-    index = day_dict[dayname]
-    len_left = 6-index
-    Ordered_list = [0,0,0,0,0,0,0]
-    counter = 0
-    for i in range(index, index+len_left+1):
-        Ordered_list[i] = day_list[counter]
-        counter += 1
-    counter = 0
-    for k in range(-1*index,0):
-        Ordered_list[counter] = day_list[k]
-        counter += 1
-        
-    context = {"formset":formset,
-               "Monday": Ordered_list[0],
-               "Tuesday": Ordered_list[1],
-               "Wednesday": Ordered_list[2],
-               "Thursday": Ordered_list[3],     
-               "Friday": Ordered_list[4],
-               "Saturday": Ordered_list[5],
-               "Sunday": Ordered_list[6],  
-               }
+    times = []
+    for i in range(5,18):
+        if i < 12:
+            times.append(str(i)+"am")
+        else:
+            times.append(str(i)+"pm")
+
+    context = {
+            "formset":formset,
+            "Day0": day_list[0],
+            "Day1": day_list[1],
+            "Day2": day_list[2],
+            "Day3": day_list[3],     
+            "Day4": day_list[4],
+            "Day5": day_list[5],
+            "Day6": day_list[6], 
+            "time_list": times, 
+            }
 
     return render(request, "timetable_update_form.html", context=context)
 
@@ -158,32 +154,39 @@ def Show_Timetable(request):
     today = dt.date.today()
     dayname = today.strftime('%A')
     day_list = []
-    day_list.append(today.strftime("%d/%m/%y")+str(" Today"))
+    day_list.append(dayname+" "+today.strftime("%d/%m/%y"))
     for i in range(1,7):
         newdate = today + dt.timedelta(i)
-        day_list.append(newdate.strftime("%d/%m/%y"))
+        day_list.append(str(newdate.strftime('%A'))+" "+newdate.strftime("%d/%m/%y"))
 
-    day_dict = {"Monday":0,"Tuesday":1,"Wednesday":2,"Thursday":3,"Friday":4,"Saturday":5,"Sunday":6}
-    index = day_dict[dayname]
-    len_left = 6-index
-    Ordered_list = [0,0,0,0,0,0,0]
-    counter = 0
-    for i in range(index, index+len_left+1):
-        Ordered_list[i] = day_list[counter]
-        counter += 1
-    counter = 0
-    for k in range(-1*index,0):
-        Ordered_list[counter] = day_list[k]
-        counter += 1
+    times = []
+    for i in range(5,19):
+            times.append(str(i))
 
-    context = {"queryset":queryset,
-               "Monday": Ordered_list[0],
-               "Tuesday": Ordered_list[1],
-               "Wednesday": Ordered_list[2],
-               "Thursday": Ordered_list[3],     
-               "Friday": Ordered_list[4],
-               "Saturday": Ordered_list[5],
-               "Sunday": Ordered_list[6],  
-               }
+    day_funcs = []
+
+    for i in range(7):
+        newdate = today + dt.timedelta(i)
+        dayname = newdate.strftime('%A')
+        if dayname != "Thursday":
+            dayname = dayname[:3].lower()
+        else:
+            dayname = dayname[:4].lower()
+        day_funcs.append(dayname)
+    today_code = day_funcs[0]
+
+    context = {
+            "queryset":queryset,
+            "Day0": day_list[0],
+            "Day1": day_list[1],
+            "Day2": day_list[2],
+            "Day3": day_list[3],     
+            "Day4": day_list[4],
+            "Day5": day_list[5],
+            "Day6": day_list[6], 
+            "times": times,
+            "day_funcs": day_funcs, 
+            "today_code":today_code,
+            }
 
     return render(request, "class_table.html", context = context)
