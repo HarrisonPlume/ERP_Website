@@ -1,5 +1,5 @@
 from typing import Any
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from .models import Gym_class, Timetable, timetable_class_instance, UserProfile
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -10,6 +10,8 @@ from django.urls import reverse, reverse_lazy
 from django.forms import modelformset_factory
 from .forms import TimetableUpdateForm
 import datetime as dt
+from django.db.models import Case, When
+import itertools
 import os
 
 # Create your views here.
@@ -102,17 +104,9 @@ timetableFormSet = modelformset_factory(timetable_class_instance, form=Timetable
 
 @login_required
 def Update_TimeTable(request):
-    queryset = timetable_class_instance.objects.all().order_by('time_slot', 'day')
-    formset = timetableFormSet(queryset=queryset)
-
-    if request.method == "POST":
-        formset = timetableFormSet(request.POST)
-        if formset.is_valid():
-            formset.save()
-            return redirect("timetable")
-        
     today = dt.date.today()
     dayname = today.strftime('%A')
+
     day_list = []
     day_list.append(dayname+" "+today.strftime("%d/%m/%y"))
     for i in range(1,7):
@@ -125,6 +119,45 @@ def Update_TimeTable(request):
             times.append(str(i)+"am")
         else:
             times.append(str(i)+"pm")
+    day_entries = []
+    day_names = []
+
+    for i in range(7):
+        newdate = today + dt.timedelta(i)
+        dayname = newdate.strftime('%A')
+        day_names.append(dayname)
+        day_entries.append(timetable_class_instance.objects.filter(day=dayname).order_by('time_slot'))
+
+
+    ############# Create_update_list #############
+
+    # todays_entries = timetable_class_instance.objects.filter(day="Tuesday")
+    custom_order = Case(
+        When(day=day_names[0], then=1),
+        When(day=day_names[1], then=2),
+        When(day=day_names[2], then=3),
+        When(day=day_names[3], then=4),
+        When(day=day_names[4], then=5),
+        When(day=day_names[5], then=6),
+        When(day=day_names[6], then=7),
+        default=8,  # Any day not specified will come after
+    )
+
+    queryset = timetable_class_instance.objects.all().order_by(custom_order,'time_slot')#day_entries[0]|day_entries[1]|day_entries[2]#+day_entries[3]+day_entries[4]+day_entries[5]+day_entries[6]
+    formset = timetableFormSet(queryset=queryset)
+
+    if request.method == "POST":
+        formset = timetableFormSet(request.POST)
+        if formset.is_valid():
+            formset.save()
+            return redirect("timetable")
+        
+    
+    
+
+    
+
+    tue5_form = "bum"
 
     context = {
             "formset":formset,
@@ -135,7 +168,7 @@ def Update_TimeTable(request):
             "Day4": day_list[4],
             "Day5": day_list[5],
             "Day6": day_list[6], 
-            "time_list": times, 
+            "times": times, 
             }
 
     return render(request, "timetable_update_form.html", context=context)
