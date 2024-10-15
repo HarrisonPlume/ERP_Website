@@ -49,6 +49,7 @@ class Gym_ClassListView(generic.ListView):
     model = Gym_class
     context_object_name = "gym_class_list"
     template_name = "gym_class_list.html"
+    paginate_by = 50
 
 class Create_Gym_Class(StaffUserRequiredMixin, generic.CreateView):
     model = Gym_class
@@ -88,6 +89,12 @@ class User_Profile_detail(generic.DetailView):
     model = UserProfile
     template_name = "user_profile_detail.html"
     context_object_name = "user_profile"
+
+class User_Profile_List(StaffUserRequiredMixin, generic.ListView):
+    model = UserProfile
+    context_object_name = "user_profile_list"
+    template_name = "user_profile_list.html"
+    paginate_by = 50
 
     
 

@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h2>Current Gym Members</h2>
+  {% if user.is_staff %}
+  <hr>
+  <p>Admin Pannel</p>
+  <a href = "">Add New Gym Member</a>
+  <hr>
+  {% endif %}
+  {% if user_profile_list %}
+  <ul>
+    {% for user in user_profile_list %}
+      <li>
+        <a class = "ex1" href="{{ user.get_absolute_url }}">{{user.user}}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no Users in the system</p>
+  {% endif %} 
+{% endblock %}

@@ -67,6 +67,9 @@ text-decoration: none; color:#ffffff;}
           <hr>
           <div style="color:#000000;" class = "ex2">{{ user.get_username }}</div>
           <div><a class = "ex1" href = "{% url 'user_profile_detail' user.pk|add:'-1' %}">Profile</a></div>
+          {% if user.is_staff %}
+          <div><a class = "ex1" href ="{% url 'user_profile_list' %}"">Gym_Members</a></div>
+          {% endif %}
           <a class = "ex1"href="{% url 'logout'%}?next={{request.path}}">Logout</a>
           <hr>
           {% else %}

@@ -72,6 +72,10 @@ class UserProfile(models.Model):
     profile_picture = models.ImageField(upload_to=user_profile_image_path, blank=True, null=True)
     is_staff = models.BooleanField(default=False)
 
+    def get_absolute_url(self):
+        """Returns the url to access a sepecfic author instance."""
+        return reverse("user_profile_detail", args=[str(self.id)])
+
     class Meta:
         ordering = ['user'] 
 
