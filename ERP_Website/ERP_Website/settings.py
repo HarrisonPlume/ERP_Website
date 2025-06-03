@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #Add our new application
-    'ERP.apps.ErpConfig'
+    'ERP.apps.ErpConfig',
+    'django_q'
 ]
 
 MIDDLEWARE = [
@@ -135,5 +136,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+Q_CLUSTER = {
+    'name': 'your-app-name',
+    'workers': 4,
+    'recycle': 500,
+    'timeout': 60,
+    'retry': 120,
+    'queue_limit': 50,
+    'bulk': 10,
+    'orm': 'default',
+}
 
 

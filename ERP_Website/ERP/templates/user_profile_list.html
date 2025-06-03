@@ -5,7 +5,7 @@
   {% if user.is_staff %}
   <hr>
   <p>Admin Pannel</p>
-  <a href = "">Add New Gym Member</a>
+  <a href = " {% url 'create_user_profile' %}">Add New Gym Member</a>
   <hr>
   {% endif %}
   {% if user_profile_list %}

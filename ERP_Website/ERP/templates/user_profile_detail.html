@@ -14,12 +14,30 @@ a.ex3 {color: #ffffff}
 </style>
 </head>
         <br>
-        <h2>{{user_profile.user}}</h2>
+        <h4>{{user_profile.first_name}} {{user_profile.last_name}}</h4>
         {% if user_profile.profile_picture %}
             <img class = "rounded-image" src="{{user_profile.profile_picture.url}}" alt="Profile Picture" height = 200px>
         {% else %}
             <p>No profile picture available.</p>
         {% endif %}
+        <br>
+        <br>
+        <p>DOB: {{user_profile.date_of_birth}}</p>
+        <p>Gender: {{user_profile.gender}}</p>
+        <p>Email: {{user_profile.email}}</p>
+        <p>Mobile: {{user_profile.mobile}}</p>
+        <p>Address: {{user_profile.postal_address}}</p>
+        <p>Post Code: {{user_profile.post_code}}</p>
+        <p>Prefered Training: {{user_profile.prefered_traning}}</p>
+        <p>Last payment: {{user_profile.last_payment}}</p>
+        <p>Next payment: {{user_profile.next_payment}}</p>
+        <p>Payment Status:<span style="color: {% if user_profile.is_paid %} green {% else %} red {% endif %};">
+             {{ user_profile.is_paid }}</span>
+        </p>
+        <p>Staff? {{user_profile.is_staff}}</p>
+
+        <p></p>
+
         <br>
         <br>
         <h5>Currently Enrolled Classes</h5>

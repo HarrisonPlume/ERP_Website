@@ -32,23 +32,42 @@ a.ex2{color: #bababa;}
     <form method="post">
         {% csrf_token %}
         <div style="display: none;">{{formset}}</div>
-    <table>
+    <table class = "std-table">
         <thead>
             <tr>
-                <th>Day</th>
-                <th>Time</th>
-                <th>Gym Class</th>
+                <th>24h Time</th>
+                <th class="today-table">{{Day0}}</th>
+                <th>{{Day1}}</th>
+                <th>{{Day2}}</th>
+                <th>{{Day3}}</th>
+                <th>{{Day4}}</th>
+                <th>{{Day5}}</th>
+                <th>{{Day6}}</th>
             </tr>
         </thead>
         <tbody>
-            {% for form in formset %}
+                
+            {% for time in times %}
             <tr>
-                <td>{{form.day}}</td>
-                <td>{{form.time_slot}}</td>
-                <td>{{form.gym_class}}</td>
+                <td>{{ time }}</td>  <!-- Display the time in the first column -->
+                {% for form in formset %}  <!-- Display 7 forms per row -->
+                    <td>
+                        {{ form.gym_class }}  <!-- Render the form -->
+                    </td>
+                {% endfor %}
             </tr>
-            {% endfor %}
+        {% endfor %}
         </tbody>
+    </table>
+
+    <table>
+        {% for formset_row in formset|slice:":7" %}
+            <tr>
+                {% for form in formset_row %}
+                <td>{{form}}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
     </table>
 
         <button type="submit">Save Changes</button>

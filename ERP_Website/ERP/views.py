@@ -98,6 +98,11 @@ class User_Profile_List(StaffUserRequiredMixin, generic.ListView):
     template_name = "user_profile_list.html"
     paginate_by = 50
 
+class Create_User_Profile(StaffUserRequiredMixin, generic.CreateView):
+    model = UserProfile
+    template_name = "create_gymclass_form.html"
+    fields = "__all__"
+
     
 
 timetableFormSet = modelformset_factory(timetable_class_instance, form=TimetableUpdateForm, extra=0)
@@ -117,8 +122,10 @@ def Update_TimeTable(request):
     for i in range(5,18):
         if i < 12:
             times.append(str(i)+"am")
-        else:
+        elif i == 12:
             times.append(str(i)+"pm")
+        else:
+            times.append(str(i-12)+"pm")
     day_entries = []
     day_names = []
 
@@ -143,7 +150,7 @@ def Update_TimeTable(request):
         default=8,  # Any day not specified will come after
     )
 
-    queryset = timetable_class_instance.objects.all().order_by(custom_order,'time_slot')#day_entries[0]|day_entries[1]|day_entries[2]#+day_entries[3]+day_entries[4]+day_entries[5]+day_entries[6]
+    queryset = timetable_class_instance.objects.all().order_by('time_slot',custom_order)
     formset = timetableFormSet(queryset=queryset)
 
     if request.method == "POST":
