@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'ERP_Website.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'connect_erp',
+        'USER': 'harrison',
+        'PASSWORD': 'Tq49XUQ7',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 
