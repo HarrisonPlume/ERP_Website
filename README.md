@@ -21,4 +21,4 @@ After the ERP database is created, copy the current data into that with the foll
 
 Now you can run the container and it should work beautifully.
 
-Admin login: \n User: ERPAdmin \n Pass: Tq49XUQ7
+Admin login: User: ERPAdmin Pass: Tq49XUQ7
