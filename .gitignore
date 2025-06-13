@@ -1,4 +1,4 @@
 # files to ignore
 # anything pycache
 
-__pycache__/
+*__pycache__*
