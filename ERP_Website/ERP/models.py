@@ -65,11 +65,26 @@ def user_profile_image_path(instance, filename):
     return path_join('profile_pics', username+".jpg")
 
 class UserProfile(models.Model):
+    GENDER_CHOICES = [
+        ("M", "Male"),
+        ("F","Female"),
+        ("O", "Other"),
+    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
-    # first_name = models.CharField(max_length=40, blank=True, null=True)
-    # last_name = models.CharField(max_length=40, blank=True, null=True)
+    first_name = models.CharField(max_length=40, blank=True, null=True)
+    last_name = models.CharField(max_length=40, blank=True, null=True)
+    date_of_birth = models.DateField(null=True)
     profile_picture = models.ImageField(upload_to=user_profile_image_path, blank=True, null=True)
+    gender = models.CharField(max_length=1, choices= GENDER_CHOICES, default="O", null = True)
+    email = models.CharField(max_length=100, null = True, default="noemail@outlook.com")
+    mobile = models.DecimalField(max_digits=10, decimal_places=0, null = True, default = 0000000000)
+    postal_address = models.CharField(max_length=150, null = True)
+    post_code = models.DecimalField(max_digits=4, decimal_places=0, null= True, default = 0000)
+    prefered_traning = models.ForeignKey("Gym_Class", on_delete=models.RESTRICT, null=True, blank = True)
+    last_payment = models.DateTimeField(null = True)
+    next_payment = models.DateTimeField(null = True)
+    is_paid = models.BooleanField(default=False, null = False)
     is_staff = models.BooleanField(default=False)
 
     def get_absolute_url(self):

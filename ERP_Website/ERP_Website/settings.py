@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #Add our new application
-    'ERP.apps.ErpConfig'
+    'ERP.apps.ErpConfig',
+    'django_q'
 ]
 
 MIDDLEWARE = [
@@ -77,10 +79,9 @@ WSGI_APPLICATION = 'ERP_Website.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='postgres://harrison:Tq49XUQ7@db:5432/connect_erp'
+    )
 }
 
 
@@ -135,5 +136,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+Q_CLUSTER = {
+    'name': 'your-app-name',
+    'workers': 4,
+    'recycle': 500,
+    'timeout': 60,
+    'retry': 120,
+    'queue_limit': 50,
+    'bulk': 10,
+    'orm': 'default',
+}
 
 

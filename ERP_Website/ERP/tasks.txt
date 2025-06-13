@@ -1,0 +1,3 @@
+py manage.py qcluster
+py manage.py runserver
+

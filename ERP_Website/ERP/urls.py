@@ -15,6 +15,7 @@ urlpatterns = [
     path("timetable_class/<int:pk>", views.Timetable_Class_detail.as_view(), name="timetable_class"),
     path("timetable_class/<int:pk>/update", views.timetable_class_instace_update.as_view(), name="update_timetable_class"),
     path("user_profile/<int:pk>", views.User_Profile_detail.as_view(), name="user_profile_detail"),
-    path("user_profiles", views.User_Profile_List.as_view(), name="user_profile_list")
+    path("user_profiles", views.User_Profile_List.as_view(), name="user_profile_list"),
+    path("user_profiles/create", views.Create_User_Profile.as_view(), name="create_user_profile")
     ]
 
